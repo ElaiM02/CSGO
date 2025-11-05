@@ -17,7 +17,7 @@ if (empty($usuario) || empty($contrasena)) {
 }
 
 try {
-    $query = "SELECT id, usuario, password FROM usuarios WHERE usuario = ? LIMIT 1";
+    $query = "SELECT id, usuario, password, rol FROM usuarios WHERE usuario = ? LIMIT 1";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("s", $usuario);
     $stmt->execute();

@@ -89,6 +89,10 @@ try {
     $stmt->bind_param("sssssssss", $nombre, $apellidos, $cedula, $fecha_nacimiento, $correo, $telefono, $foto, $usuario, $hashed_password);
 
     if ($stmt->execute()) {
+        $user_id = $conn->insert_id; 
+        $_SESSION['usuario'] = $usuario;
+        $_SESSION['rol'] = 'pasajero';
+        $_SESSION['user_id'] = $user_id;
         $_SESSION['success'] = "¡Registro exitoso! Ya puedes iniciar sesión como pasajero.";
         header("Location: login.php");
         exit;

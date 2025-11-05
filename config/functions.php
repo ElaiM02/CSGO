@@ -1,15 +1,12 @@
 <?php
 // Verifica si el usuario está autenticado
 
-/*function checkAuth() {
-    if (session_status() == PHP_SESSION_NONE) {
-        session_start();
+function checkAuth() {
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: login.php");
+        exit;
     }
-    if (!isset($_SESSION['usuario'])) {
-        header("Location: index.php");
-        exit();
-    }
-}*/
+}
 
 
 // Muestra mensaje de error si existe
@@ -40,11 +37,11 @@ function checkRole($required_role) {
     }
 }
 
+function getRol() {return isset($_SESSION['rol']) ? ucfirst($_SESSION['rol']) : 'Desconocido';}
 function isChofer() {return isset($_SESSION['rol']) && $_SESSION['rol'] === 'chofer';}
 function isAdmin() {return isset($_SESSION['rol']) && $_SESSION['rol'] === 'admin';}
 function isPasajero() {return isset($_SESSION['rol']) && $_SESSION['rol'] === 'pasajero';}
 
-function getRol() {return isset($_SESSION['rol']) ? ucfirst($_SESSION['rol']) : 'Desconocido';}
 
 // Redirige según estado de autenticación
 

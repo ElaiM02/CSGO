@@ -2,7 +2,7 @@
 require_once '../config/start_app.php';
 require_once '../config/functions.php';
 
-//checkAuth();
+checkAuth();
 ?>
 
 <!DOCTYPE html>
@@ -24,7 +24,7 @@ require_once '../config/functions.php';
             </a>
             <div class="collapse navbar-collapse justify-content-end">
                 <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link active" href="dashboard.php">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="registroVehiculos.php">Inicio</a></li>
 
                     <?php if (isChofer()): ?>
                         <li class="nav-item"><a class="nav-link" href="registroVehiculos.php">Mis Vehículos</a></li>
@@ -38,7 +38,7 @@ require_once '../config/functions.php';
                     <li class="nav-item dropdown ms-3">
                         <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">
                             <?php echo htmlspecialchars(getUserName() ?? 'Invitado'); ?>
-                            <span class="badge bg-<?php echo ($_SESSION['rol'] ?? '') === 'admin' ? 'danger' : 'secondary'; ?>">
+                            <span class="badge bg-light text-primary ms-2">
                                 <?php echo getRol(); ?>
                             </span>
                         </a>
@@ -64,7 +64,10 @@ require_once '../config/functions.php';
                 <div class="card shadow">
                     <div class="card-body text-center">
                         <h3>¡Bienvenido, <strong><?php echo htmlspecialchars(getUserName() ?? 'Invitado'); ?></strong>!</h3>
-                        <p class="text-muted">Rol: <strong><?php echo getRol(); ?></strong></p>
+                        <p class="lead">
+                            <span class="badge bg-primary fs-5">Rol: <?php echo getRol(); ?></span>
+                        </p>
+                        <hr>
                         <?php if (isPasajero()): ?>
                             <a href="rides/lista.php" class="btn btn-primary btn-lg mt-3">Buscar Viajes</a>
                         <?php elseif (isChofer()): ?>
