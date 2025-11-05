@@ -1,0 +1,76 @@
+<?php
+require_once '../config/start_app.php';
+require_once '../config/functions.php';
+
+if ($_SERVER["REQUEST_METHOD"] !== "POST" || !isset($_SESSION['user_id'])) {
+    header("Location: registroVehiculos.php");
+    exit;
+}
+
+$marca   = trim($_POST['marca'] ?? '');
+$modelo  = trim($_POST['modelo'] ?? '');
+$ano     = (int)($_POST['ano'] ?? 0);
+$color   = trim($_POST['color'] ?? '');
+$placa   = strtoupper(trim($_POST['placa'] ?? ''));
+$user_id = $_SESSION['user_id'];
+
+if (empty($marca) || empty($modelo) || $ano < 1980 || empty($color) || empty($placa)) {
+    $_SESSION['error'] = "Todos los campos son requeridos.";
+    header("Location: registroVehiculos.php");
+    exit;
+}
+
+if (!preg_match("/^[A-Z0-9]{6,10}$/", $placa)) {
+    $_SESSION['error'] = "Placa inválida (6-10 caracteres, solo letras y números).";
+    header("Location: registroVehiculos.php");
+    exit;
+}
+
+// SUBIDA DE FOTO (opcional)
+$foto = null;
+if (!empty($_FILES['foto']['name']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+    $ext = strtolower(pathinfo($_FILES['foto']['name'], PATHINFO_EXTENSION));
+    $allowed = ['jpg','jpeg','png','gif'];
+    
+    if (!in_array($ext, $allowed)) {
+        $_SESSION['error'] = "Solo JPG, PNG o GIF.";
+        header("Location: registroVehiculos.php");
+        exit;
+    }
+    if ($_FILES['foto']['size'] > 2*1024*1024) {
+        $_SESSION['error'] = "Foto muy grande (máx 2MB).";
+        header("Location: registroVehiculos.php");
+        exit;
+    }
+    
+    $dir = '../uploads/vehiculos/';
+    if (!is_dir($dir)) mkdir($dir, 0755, true);
+    
+    $foto = 'vehiculos/' . uniqid() . '.' . $ext;
+    move_uploaded_file($_FILES['foto']['tmp_name'], $dir . basename($foto));
+}
+
+try {
+    $query = "INSERT INTO vehiculos 
+              (user_id, marca, modelo, ano, color, placa, foto) 
+              VALUES (?, ?, ?, ?, ?, ?, ?)";
+    
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ississs", $user_id, $marca, $modelo, $ano, $color, $placa, $foto);
+    
+    if ($stmt->execute()) {
+        $_SESSION['success'] = "Vehículo registrado. Esperando aprobación del admin.";
+        header("Location: mis_vehiculos.php");
+    } else {
+        $_SESSION['error'] = $conn->errno == 1062 
+            ? "La placa ya está registrada." 
+            : "Error al guardar.";
+        header("Location: registroVehiculos.php");
+    }
+} catch (Exception $e) {
+    error_log("Error vehículo: " . $e->getMessage());
+    $_SESSION['error'] = "Error del sistema.";
+    header("Location: registroVehiculos.php");
+}
+exit;
+?>

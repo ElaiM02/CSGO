@@ -16,26 +16,11 @@ if (isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITIO; ?> - Carpooling Seguro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/estilos.css">
+    <link rel="stylesheet" href="css/estilo.css">
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="index.php">
-                <img src="imagenes/logo.png" alt="Logo" class="logo me-2" width="40">
-                <span class="fw-bold"><?php echo SITIO; ?></span>
-            </a>
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link active" href="index.php">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Iniciar sesión</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registro.php">Registrarse</a></li>
-                </ul>
-                <span class="text-light ms-3 hora"><?php echo $hora; ?></span>
-            </div>
-        </div>
-    </nav>
+<?php include 'navbar.php'; ?>
 
     <header class="hero d-flex flex-column justify-content-center align-items-center text-center text-white">
         <div class="overlay"></div>
