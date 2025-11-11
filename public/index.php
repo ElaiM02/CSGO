@@ -4,7 +4,7 @@ require_once '../config/functions.php';
 
 
 if (isset($_SESSION['usuario'])) {
-    header("Location: prueba.php");
+    header("Location: dashboard.php");
     exit;
 }
 ?>
@@ -16,12 +16,12 @@ if (isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo SITIO; ?> - Carpooling Seguro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/estilo.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
 
-<?php include 'navbar.php'; ?>
-
+    <?php include __DIR__ . '/navbar.php'; ?>
+    
     <header class="hero d-flex flex-column justify-content-center align-items-center text-center text-white">
         <div class="overlay"></div>
         <div class="content">

@@ -17,7 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">  
     <title>Registrar Vehículo - <?php echo SITIO; ?></title> 
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> 
-    <link rel="stylesheet" href="css/estilo.css">  
+    <link rel="stylesheet" href="css/main.css">  
 </head>  
 <body>  
 <?php include 'navbar.php'; ?>
@@ -37,7 +37,7 @@ if (!isset($_SESSION['user_id'])) {
                 <label for="foto">Foto del vehículo (opcional, JPG/PNG/GIF, máx 2MB)</label>  
                 <input type="file" name="foto" accept="image/*">  
                 <button type="submit">Registrar Vehículo</button>  
-                <p><a href="prueba.php">Volver al Inicio</a></p>  
+                <p><a href="dashboard.php">Volver al Inicio</a></p>  
             </form>  
         </div>  
     </div>  

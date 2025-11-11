@@ -23,7 +23,7 @@ require_once '../config/functions.php';
                     <li class="nav-item"><a class="nav-link" href="../registro.php">Registrarse</a></li>
                       <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Registrarse Vehiculo</a></li>
                 <?php else: ?>
-                    <li class="nav-item"><a class="nav-link" href="../prueba.php">Dashboard</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../dashboard.php">Dashboard</a></li>
 
                 <?php if($_SESSION['rol'] == 'pasajero'): ?>
                      <a class="nav-link btn btn-success text-white px-3" href="registroVehiculos.php">
@@ -33,7 +33,7 @@ require_once '../config/functions.php';
 
                     <?php if (isChofer()): ?>
                         <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Mis Vehículos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../rides/crear.php">Publicar Viaje</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../rides_create.php">Publicar Viaje</a></li>
                     <?php endif; ?>
 
                     <?php if (isAdmin()): ?>
