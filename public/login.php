@@ -12,7 +12,7 @@ redirectByAuth();
     <title>Login - Aventones</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body class= "login-bg">
 
     <div class="container">
         <div class="form-box active">

@@ -79,7 +79,7 @@ body {
 /* ------------------ HERO SECTION ------------------ */
 .hero {
     position: relative;
-    background-image: url('../imagenes/t1.png');
+    background-image: url('../imagenes/t1.png') ;
     background-size: cover;
     background-position: center;
     height: 90vh;
@@ -150,15 +150,7 @@ footer {
 }
 
 /* ------------------ FORMULARIOS (LOGIN/REGISTRO) ------------------ */
-.form-box {
-    width: 100%;
-    max-width: 450px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-}
+
 
 .form-box h2 {
     font-size: 32px;
@@ -219,7 +211,7 @@ footer {
 
 /* ------------------ LOGIN BACKGROUND ------------------ */
 .login-bg {
-    background-image: url('../imagenes/login.png');
+    background-image: url('../imagenes/fondo.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -232,13 +224,16 @@ footer {
     position: relative;
 }
 
+
 .login-bg::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background: rgba(0, 0, 0, 0.4); /* Oscurece ligeramente */
-    z-index: 1;
-}
+    z-index: -1;
+} 
+
+
 
 .login-container {
     position: relative;
@@ -253,9 +248,11 @@ footer {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
-    padding: 40px;
+    padding: 70px;
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    z-index: 2;
 }
 
 .form-box h2 {
@@ -312,8 +309,12 @@ footer {
     text-decoration: underline;
 }
 
+
 /* Responsive */
 @media (max-width: 576px) {
+    .dashboard-bg{
+       padding-top: 80px; 
+    }
     .form-box {
         padding: 30px 20px;
         margin: 15px;

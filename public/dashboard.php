@@ -14,49 +14,9 @@ checkAuth();
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
+<body class = "login-bg">
+    <?php include __DIR__ . '/navbar.php'; ?>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center" href="dashboard.php">
-                <img src="imagenes/logo.png" alt="Logo" class="logo me-2" width="40">
-                <span class="fw-bold"><?php echo SITIO; ?></span>
-            </a>
-            <div class="collapse navbar-collapse justify-content-end">
-                <ul class="navbar-nav align-items-center">
-                    <li class="nav-item"><a class="nav-link active" href="rides.php">Inicio</a></li>
-
-                    <?php if (isChofer()): ?>
-                        <li class="nav-item"><a class="nav-link" href="registroVehiculos.php">Mis Vehículos</a></li>
-                        <li class="nav-item"><a class="nav-link" href="rides_create.php">Publicar Viaje</a></li>
-                    <?php endif; ?>
-
-                    <?php if (isAdmin()): ?>
-                        <li class="nav-item"><a class="nav-link text-warning" href="pendientes.php">Panel Admin</a></li>
-                    <?php endif; ?>
-
-                    <li class="nav-item dropdown ms-3">
-                        <a class="nav-link dropdown-toggle text-light" href="#" data-bs-toggle="dropdown">
-                            <?php echo htmlspecialchars(getUserName()); ?>
-                            <span class="badge bg-light text-primary ms-2">
-                                <?php echo getRol(); ?>
-                            </span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="perfil.php">Mi Perfil</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li>
-                                <form action="logout.php" method="post" class="d-inline">
-                                    <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-                <span class="text-light ms-3 hora"><?php echo $hora; ?></span>
-            </div>
-        </div>
-    </nav>
 
     <div class="container mt-5">
         <div class="row">
