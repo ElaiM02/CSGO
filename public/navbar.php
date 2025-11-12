@@ -21,7 +21,6 @@ require_once '../config/functions.php';
                     <li class="nav-item"><a class="nav-link" href="../index.php">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="../login.php">Iniciar sesión</a></li>
                     <li class="nav-item"><a class="nav-link" href="../registro.php">Registrarse</a></li>
-                      <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Registrarse Vehiculo</a></li>
                 <?php else: ?>
                     <li class="nav-item"><a class="nav-link" href="../dashboard.php">Dashboard</a></li>
 
@@ -37,7 +36,7 @@ require_once '../config/functions.php';
                     <?php endif; ?>
 
                     <?php if (isAdmin()): ?>
-                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="../admin/pendientes.php">Panel Admin</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning fw-bold" href="../pendientes.php">Panel Admin</a></li>
                     <?php endif; ?>
 
                     <li class="nav-item dropdown">

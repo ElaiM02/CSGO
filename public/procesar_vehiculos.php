@@ -60,7 +60,7 @@ try {
     
     if ($stmt->execute()) {
         $_SESSION['success'] = "Vehículo registrado. Esperando aprobación del admin.";
-        header("Location: prueba.php");
+        header("Location: dashboard.php");
     } else {
         $_SESSION['error'] = $conn->errno == 1062 
             ? "La placa ya está registrada." 

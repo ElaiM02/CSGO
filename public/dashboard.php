@@ -32,7 +32,7 @@ checkAuth();
                     <?php endif; ?>
 
                     <?php if (isAdmin()): ?>
-                        <li class="nav-item"><a class="nav-link text-warning" href="admin/pendientes.php">Panel Admin</a></li>
+                        <li class="nav-item"><a class="nav-link text-warning" href="pendientes.php">Panel Admin</a></li>
                     <?php endif; ?>
 
                     <li class="nav-item dropdown ms-3">
@@ -70,10 +70,11 @@ checkAuth();
                         <hr>
                         <?php if (isPasajero()): ?>
                             <a href="rides.php" class="btn btn-primary btn-lg">Buscar Viajes</a>
+                            <a href="registroVehiculos.php" class="btn btn-success btn-lg">Registrar Vehículo</a>
                         <?php elseif (isChofer()): ?>
                             <a href="registroVehiculos.php" class="btn btn-success btn-lg">Registrar Vehículo</a>
                         <?php elseif (isAdmin()): ?>
-                            <a href="admin/pendientes.php" class="btn btn-warning btn-lg">Panel de Administración</a>
+                            <a href="pendientes.php" class="btn btn-warning btn-lg">Panel de Administración</a>
                         <?php endif; ?>
                     </div>
                 </div>

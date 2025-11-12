@@ -63,4 +63,61 @@ function getUserName() {
     }
     return $_SESSION['usuario'] ?? null;
 }
+
+
+
+// Aprueba o rechaza un vehículo (solo admin)
+function aprobarRechazarVehiculo(int $vehiculo_id, string $accion, mysqli $conn): bool
+{
+    if (!in_array($accion, ['aprobar', 'rechazar'])) {
+        $_SESSION['error'] = "Acción inválida.";
+        return false;
+    }
+
+    try {
+        $conn->begin_transaction();
+
+        // Obtener usuario y rol
+        $sql = "SELECT v.user_id, u.rol FROM vehiculos v 
+                JOIN usuarios u ON v.user_id = u.id 
+                WHERE v.id = ? AND v.estado = 'pendiente' LIMIT 1";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("i", $vehiculo_id);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $vehiculo = $result->fetch_assoc();
+
+        if (!$vehiculo) {
+            $_SESSION['error'] = "Vehículo no encontrado o ya procesado.";
+            $conn->rollback();
+            return false;
+        }
+
+        $nuevo_estado = $accion === 'aprobar' ? 'aprobado' : 'rechazado';
+        $fecha_aprobacion = $accion === 'aprobar' ? ', fecha_aprobacion = NOW()' : '';
+
+        $sql = "UPDATE vehiculos SET estado = ? $fecha_aprobacion WHERE id = ?";
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("si", $nuevo_estado, $vehiculo_id);
+        $stmt->execute();
+
+        // Si se aprueba y es pasajero → convertir a chofer
+        if ($accion === 'aprobar' && $vehiculo['rol'] === 'pasajero') {
+            $sql = "UPDATE usuarios SET rol = 'chofer' WHERE id = ?";
+            $stmt = $conn->prepare($sql);
+            $stmt->bind_param("i", $vehiculo['user_id']);
+            $stmt->execute();
+        }
+
+        $_SESSION['success'] = "Vehículo " . ($accion === 'aprobar' ? 'aprobado' : 'rechazado') . " correctamente.";
+        $conn->commit();
+        return true;
+
+    } catch (Exception $e) {
+        $conn->rollback();
+        error_log("Error aprobarRechazarVehiculo: " . $e->getMessage());
+        $_SESSION['error'] = "Error del sistema.";
+        return false;
+    }
+}
 ?>

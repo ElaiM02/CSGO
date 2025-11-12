@@ -3,6 +3,7 @@
     $db       = 'csgo';
     $user     = 'csgouser';
     $password = 'secret';
+
     
     $conn = new mysqli($host, $user, $password, $db);
 

@@ -28,7 +28,7 @@ if (!isset($_SESSION['user_id'])) {
             <?php showError(); ?>  
             <?php showSuccess(); ?>  
 
-            <form action="procesar_registro_vehiculo.php" method="POST" enctype="multipart/form-data">  
+            <form action="procesar_vehiculos.php" method="POST" enctype="multipart/form-data">  
                 <input type="text" name="marca" placeholder="Marca " required>  
                 <input type="text" name="modelo" placeholder="Modelo " required>  
                 <input type="number" name="ano" placeholder="Año " min="1900" max="<?php echo date('Y'); ?>" required>  

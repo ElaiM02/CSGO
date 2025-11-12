@@ -49,7 +49,7 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
 }
 
 // Subida de foto (opcional)
-/*$foto = null;
+$foto = null;
 if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
     $allowed = ['jpg', 'jpeg', 'png', 'gif'];
     $filename = $_FILES['foto']['name'];
@@ -76,7 +76,7 @@ if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
         header("Location: registro.php");
         exit;
     }
-}*/
+}
 
 try {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
