@@ -48,7 +48,7 @@ unset($_SESSION['success'], $_SESSION['error']);
 
 <?php include __DIR__ . '/navbar.php'; ?>
 
-<!-- 🔥 ESTE WRAPPER ES EL QUE ARREGLA TODO -->
+
 <div class="ride-container">
     <div class="container mt-4 mb-5">
 

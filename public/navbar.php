@@ -35,9 +35,11 @@ require_once '../config/functions.php';
                     <?php endif; ?>
 
                     <?php if (isChofer()): ?>
-                        <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Mis Vehículos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../vehiculos.php">Mis Vehículos</a></li>
                         <li class="nav-item"><a class="nav-link" href="../rides_create.php">Publicar Viaje</a></li>
                         <li class="nav-item"><a class="nav-link" href="solicitudes_chofer.php">Solicitudes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../rides.php">Mis viajes</a></li
+
 
                     <?php endif; ?>
 
