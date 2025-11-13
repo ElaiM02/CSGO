@@ -107,7 +107,7 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
                                 <input type="date" name="fecha" class="form-control" value="<?= $fecha ?>">
                             </div>
                             <button type="submit" class="btn btn-primary w-100">
-                                Buscar Viajes
+                                Buscar Viajes jejej
                             </button>
                         </form>
                     </div>
