@@ -64,6 +64,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Publicar Viaje - <?php echo SITIO; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <link href="css/rides.css" rel="stylesheet">
     <style>
         .form-icon { color: #0d6efd; }
         .card-header { background: linear-gradient(135deg, #198754, #157347); color: white; }
@@ -80,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h4 class="mb-0">
                             <i class="fas fa-plus-circle"></i> Publicar Nuevo Viaje
                         </h4>
-                        <a href="rides_create.php" class="btn btn-outline-light btn-sm">
+                        <a href="rides.php" class="btn btn-outline-light btn-sm">
                             <i class="fas fa-arrow-left"></i> Mis Viajes
                         </a>
                     </div>
@@ -97,7 +99,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         <?php endif; ?>
 
-                        <form method="POST" action="">
+                        <!-- 🚀 FORMULARIO ESTILIZADO -->
+                        <form class="ride-form" method="POST" action="">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">
@@ -209,9 +212,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <i class="fas fa-sticky-note form-icon"></i> Notas Adicionales
                                 </label>
                                 <textarea name="notas" class="form-control" rows="3" maxlength="500"
-                                          placeholder="Ej: Salida puntual, llevar cédula, no se permite comida fuerte...">
-                                    <?php echo htmlspecialchars($notas); ?>
-                                </textarea>
+                                          placeholder="Ej: Salida puntual, llevar cédula, no se permite comida fuerte..."><?php echo htmlspecialchars($notas); ?></textarea>
                                 <div class="form-text">Máximo 500 caracteres</div>
                             </div>
 
@@ -225,6 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </button>
                             </div>
                         </form>
+                        <!-- 🚀 FIN FORMULARIO -->
                     </div>
                 </div>
             </div>

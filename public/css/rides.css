@@ -1,0 +1,101 @@
+/* ========================================
+   ride.css - ESTILOS UNIFICADOS PARA VIAJES
+   Aventones | UTN - ISW-811
+   ======================================== */
+
+/* ------------------ CONTENEDOR PRINCIPAL ------------------ */
+.ride-container {
+    background: url('../imagenes/fondo.jpg') center/cover no-repeat;
+    min-height: calc(100vh - 100px);
+    position: relative;
+    padding: 2rem 0;
+    margin: 0;
+}
+
+.ride-container::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.92);
+    z-index: 1;
+}
+
+.ride-container > .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* ------------------ TÍTULOS ------------------ */
+.ride-title {
+    color: #0056b3 !important;
+    font-weight: 700 !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* ------------------ TARJETAS DE VIAJE ------------------ */
+.ride-card {
+    background: rgba(255, 255, 255, 0.97) !important;
+    border: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.12) !important;
+    transition: transform 0.2s ease;
+    margin-bottom: 1.5rem;
+}
+
+.ride-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0,0,0,0.15) !important;
+}
+
+.ride-card .badge {
+    font-size: 0.7rem;
+}
+
+/* ------------------ FORMULARIOS ------------------ */
+.ride-form .form-control,
+.ride-form .form-select {
+    background: #fff !important;
+    border: 1px solid #ddd !important;
+    border-radius: 10px !important;
+    padding: 0.75rem 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ride-form .form-control:focus,
+.ride-form .form-select:focus {
+    border-color: #0056b3 !important;
+    box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.2) !important;
+}
+
+.ride-form label {
+    color: #0056b3;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* ------------------ BOTONES ------------------ */
+.btn-ride {
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-ride:hover {
+    background: #004085;
+    transform: translateY(-2px);
+}
+
+/* ------------------ RESPONSIVE ------------------ */
+@media (max-width: 576px) {
+    .ride-container {
+        padding: 1rem 0;
+    }
+    .ride-form .col-md-6 {
+        margin-bottom: 1rem;
+    }
+}

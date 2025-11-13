@@ -38,6 +38,7 @@ unset($_SESSION['success'], $_SESSION['error']);
     <title>Mis Viajes - <?php echo SITIO; ?></title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../css/rides.css" rel="stylesheet">
     <style>
         .viaje-card { transition: all 0.3s; }
         .viaje-card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.15) !important; }
@@ -45,9 +46,12 @@ unset($_SESSION['success'], $_SESSION['error']);
 </head>
 <body>
 
-    <?php include __DIR__ . '/navbar.php'; ?>
+<?php include __DIR__ . '/navbar.php'; ?>
 
+<!-- 🔥 ESTE WRAPPER ES EL QUE ARREGLA TODO -->
+<div class="ride-container">
     <div class="container mt-4 mb-5">
+
         <div class="row">
             <div class="col-12">
                 <div class="d-flex justify-content-between align-items-center mb-4">
@@ -84,6 +88,7 @@ unset($_SESSION['success'], $_SESSION['error']);
                         </a>
                     </div>
                 <?php else: ?>
+
                     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                         <?php foreach ($viajes as $v): ?>
                             <div class="col">
@@ -93,15 +98,14 @@ unset($_SESSION['success'], $_SESSION['error']);
                                             <span class="badge bg-<?php echo strtotime($v['fecha_hora_salida']) > time() ? 'primary' : 'secondary'; ?>">
                                                 <?php echo strtotime($v['fecha_hora_salida']) > time() ? 'Activo' : 'Finalizado'; ?>
                                             </span>
-                                            <small class="text-muted">
-                                                ID: #<?php echo $v['id']; ?>
-                                            </small>
+                                            <small class="text-muted">ID: #<?php echo $v['id']; ?></small>
                                         </div>
 
                                         <h5 class="card-title">
                                             <i class="fas fa-map-marker-alt text-danger"></i>
                                             <?php echo htmlspecialchars($v['origen']); ?>
                                         </h5>
+
                                         <p class="card-text mb-2">
                                             <i class="fas fa-arrow-down text-muted"></i><br>
                                             <i class="fas fa-map-marker-check text-success"></i>
@@ -113,6 +117,7 @@ unset($_SESSION['success'], $_SESSION['error']);
                                         <div class="small text-muted mb-2">
                                             <i class="fas fa-calendar"></i>
                                             <?php echo date('d/m/Y', strtotime($v['fecha_hora_salida'])); ?><br>
+
                                             <i class="fas fa-clock"></i>
                                             Salida: <?php echo date('h:i A', strtotime($v['fecha_hora_salida'])); ?>
                                             <?php if ($v['hora_llegada']): ?>
@@ -133,12 +138,10 @@ unset($_SESSION['success'], $_SESSION['error']);
                                             </div>
 
                                             <div class="btn-group w-100" role="group">
-                                                <a href="rides_view.php?id=<?php echo $v['id']; ?>" 
-                                                   class="btn btn-outline-info btn-sm">
+                                                <a href="rides_view.php?id=<?php echo $v['id']; ?>" class="btn btn-outline-info btn-sm">
                                                     <i class="fas fa-eye"></i> Ver
                                                 </a>
-                                                <a href="rides_edit.php?id=<?php echo $v['id']; ?>" 
-                                                   class="btn btn-outline-warning btn-sm">
+                                                <a href="rides_edit.php?id=<?php echo $v['id']; ?>" class="btn btn-outline-warning btn-sm">
                                                     <i class="fas fa-edit"></i> Editar
                                                 </a>
                                                 <button type="button" class="btn btn-outline-danger btn-sm" 
@@ -148,6 +151,7 @@ unset($_SESSION['success'], $_SESSION['error']);
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="card-footer text-muted small">
                                         <i class="fas fa-car"></i> 
                                         <?php echo htmlspecialchars($v['marca'] . ' ' . $v['modelo']); ?> 
@@ -157,42 +161,46 @@ unset($_SESSION['success'], $_SESSION['error']);
                             </div>
                         <?php endforeach; ?>
                     </div>
+
                 <?php endif; ?>
             </div>
         </div>
-    </div>
 
-    <!-- Modal Eliminar -->
-    <div class="modal fade" id="deleteModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header bg-danger text-white">
-                    <h5 class="modal-title">Eliminar Viaje</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <p>¿Estás seguro de eliminar el viaje:</p>
-                    <strong id="viajeRuta"></strong>?
-                    <p class="text-danger mt-2">Esta acción no se puede deshacer.</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form id="deleteForm" method="POST" action="rides_delete.php" style="display:inline;">
-                        <input type="hidden" name="id" id="deleteId">
-                        <button type="submit" class="btn btn-danger">Sí, eliminar</button>
-                    </form>
-                </div>
+    </div>
+</div>
+
+<!-- Modal Eliminar -->
+<div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Eliminar Viaje</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de eliminar el viaje:</p>
+                <strong id="viajeRuta"></strong>?
+                <p class="text-danger mt-2">Esta acción no se puede deshacer.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <form id="deleteForm" method="POST" action="rides_delete.php" style="display:inline;">
+                    <input type="hidden" name="id" id="deleteId">
+                    <button type="submit" class="btn btn-danger">Sí, eliminar</button>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        function confirmDelete(id, ruta) {
-            document.getElementById('deleteId').value = id;
-            document.getElementById('viajeRuta').textContent = ruta;
-            new bootstrap.Modal(document.getElementById('deleteModal')).show();
-        }
-    </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    function confirmDelete(id, ruta) {
+        document.getElementById('deleteId').value = id;
+        document.getElementById('viajeRuta').textContent = ruta;
+        new bootstrap.Modal(document.getElementById('deleteModal')).show();
+    }
+</script>
+
 </body>
 </html>
