@@ -33,9 +33,7 @@ if (!isset($_SESSION['user_id'])) {
                 <input type="text" name="modelo" placeholder="Modelo " required>  
                 <input type="number" name="ano" placeholder="Año " min="1900" max="<?php echo date('Y'); ?>" required>  
                 <input type="text" name="color" placeholder="Color " required>  
-                <input type="text" name="placa" placeholder="Placa" pattern="[A-Z0-9]{6,10}" title="Placa válida" required>  
-                <label for="foto">Foto del vehículo (opcional, JPG/PNG/GIF, máx 2MB)</label>  
-                <input type="file" name="foto" accept="image/*">  
+                <input type="text" name="placa" placeholder="Placa" pattern="[A-Z0-9]{6,10}" title="Placa válida" required>   
                 <button type="submit">Registrar Vehículo</button>  
                 <p><a href="dashboard.php">Volver al Inicio</a></p>  
             </form>  

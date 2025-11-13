@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
                                     </thead>
                                     <tbody>
                                         <?php
-                                       $sql = "SELECT v.*, u.usuario, u.email, u.rol, u.id AS usuario_idFROM vehiculos v JOIN usuarios u ON v.user_id = u.id 
+                                       $sql = "SELECT v.*, u.usuario, u.email, u.rol, u.id AS usuario_id FROM vehiculos v JOIN usuarios u ON v.user_id = u.id 
                                         WHERE v.estado = 'pendiente' ORDER BY v.fecha_registro DESC";
                                         $result = $conn->query($sql);
                                         while ($v = $result->fetch_assoc()):
