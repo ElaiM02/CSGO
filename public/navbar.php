@@ -44,7 +44,13 @@ require_once '../config/functions.php';
                     <?php endif; ?>
 
                     <?php if (isAdmin()): ?>
+                        <li class="nav-item"><a class="nav-link" href="../buscar_rides.php">Buscar Viajes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="rides_pasajero.php">Mis Viajes</a></li>
                         <li class="nav-item"><a class="nav-link text-warning fw-bold" href="../pendientes.php">Panel Admin</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Mis Vehículos</a></li>
+                        <li class="nav-item"><a class="nav-link" href="../rides_create.php">Publicar Viaje</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitudes_chofer.php">Solicitudes</a></li>
+                        <li class="nav-item"><a class="nav-link" href="users.php">Usuarios</a></li>
                     <?php endif; ?>
 
                     <li class="nav-item dropdown">
