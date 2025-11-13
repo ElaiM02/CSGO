@@ -29,7 +29,7 @@ checkAuth();
                         </p>
                         <hr>
                         <?php if (isPasajero()): ?>
-                            <a href="rides.php" class="btn btn-primary btn-lg">Buscar Viajes</a>
+                            <a href="buscar_rides.php" class="btn btn-primary btn-lg">Buscar Viajes</a>
                             <a href="registroVehiculos.php" class="btn btn-success btn-lg">Registrar Vehículo</a>
                         <?php elseif (isChofer()): ?>
                             <a href="registroVehiculos.php" class="btn btn-success btn-lg">Registrar Vehículo</a>

@@ -11,45 +11,17 @@ if (!in_array($_SESSION['rol'], ['pasajero', 'chofer'])) {
     exit;
 }
 
-$origen = trim($_GET['origen'] ?? '');
-$destino = trim($_GET['destino'] ?? '');
-$dia = $_GET['dia'] ?? '';
-$fecha = $_GET['fecha'] ?? '';
-
-// Construir consulta
-$where = [];
-$params = [];
-
-if ($origen) {
-    $where[] = "origen LIKE ?";
-    $params[] = "%$origen%";
-}
-if ($destino) {
-    $where[] = "destino LIKE ?";
-    $params[] = "%$destino%";
-}
-if ($dia) {
-    $where[] = "JSON_CONTAINS(dias_semana, ?)";
-    $params[] = json_encode([(int)$dia]);
-}
-if ($fecha) {
-    $where[] = "DATE(fecha_hora_salida) = ?";
-    $params[] = $fecha;
-}
-
-$where[] = "v.estado = 'activo'";
-$where[] = "cupos_disponibles > 0";
-
+// CONSULTA SIMPLE: TODOS LOS VIAJES ACTIVOS CON CUPOS
 $sql = "SELECT v.*, u.nombre AS chofer_nombre, veh.marca, veh.modelo, veh.placa
         FROM viajes v
         JOIN usuarios u ON v.chofer_id = u.id
         JOIN vehiculos veh ON v.vehiculo_id = veh.id
-        WHERE " . implode(' AND ', $where) . "
-        ORDER BY fecha_hora_salida ASC";
+        WHERE v.estado = 'activo' AND v.cupos_disponibles > 0
+        ORDER BY v.fecha_hora_salida ASC";
 
 $pdo = getConnection();
 $stmt = $pdo->prepare($sql);
-$stmt->execute($params);
+$stmt->execute();
 $viajes = $stmt->fetchAll();
 
 $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
@@ -60,79 +32,46 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Buscar Viajes - Aventones</title>
+    <title>Viajes Disponibles - Aventones</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <style>
         .card-viaje { transition: transform 0.2s; }
         .card-viaje:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
         .badge-dia { font-size: 0.7rem; }
+        .page-title { font-weight: 700; color: #0056b3; }
     </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>
 
     <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card shadow-sm">
-                    <div class="card-header bg-primary text-white">
-                        <h5>Filtros de Búsqueda</h5>
-                    </div>
-                    <div class="card-body">
-                        <form method="GET">
-                            <div class="mb-3">
-                                <label class="form-label">Origen</label>
-                                <input type="text" name="origen" class="form-control" 
-                                       value="<?= htmlspecialchars($origen) ?>" placeholder="Ej: San José">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Destino</label>
-                                <input type="text" name="destino" class="form-control" 
-                                       value="<?= htmlspecialchars($destino) ?>" placeholder="Ej: Alajuela">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Día de la semana</label>
-                                <select name="dia" class="form-select">
-                                    <option value="">Cualquier día</option>
-                                    <?php foreach ($dias_semana as $i => $dia): ?>
-                                        <option value="<?= $i+1 ?>" <?= $dia == $dia ? 'selected' : '' ?>>
-                                            <?= $dia ?>
-                                        </option>
-                                    <?php endforeach; ?>
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Fecha específica</label>
-                                <input type="date" name="fecha" class="form-control" value="<?= $fecha ?>">
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">
-                                Buscar Viajes jejej
-                            </button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+        <div class="text-center mb-4">
+            <h2 class="page-title">Viajes Disponibles</h2>
+            <p class="text-muted">Encuentra un viaje compartido y solicita tu espacio</p>
+        </div>
 
-            <div class="col-md-8">
-                <h4 class="mb-3">
-                    <?= $viajes ? count($viajes) : '0' ?> Viaje(s) encontrado(s)
+        <div class="row justify-content-center">
+            <div class="col-md-10">
+                <h4 class="mb-3 text-primary">
+                    <?= count($viajes) ?> Viaje(s) disponible(s)
                 </h4>
 
                 <?php if (empty($viajes)): ?>
-                    <div class="alert alert-info text-center">
-                        <strong>No se encontraron viajes.</strong><br>
-                        Intenta con otros filtros.
+                    <div class="alert alert-info text-center p-5">
+                        <h5>No hay viajes disponibles en este momento.</h5>
+                        <p>Vuelve más tarde o contacta a un chofer.</p>
                     </div>
                 <?php else: ?>
                     <?php foreach ($viajes as $v): 
                         $dias_json = json_decode($v['dias_semana'] ?? '[]', true);
-                        $dias_nombres = array_map(fn($d) => $dias_semana[array_search($d, $dias_semana)], $dias_json);                    ?>
+                        $dias_nombres = array_map(fn($d) => $dias_semana[array_search($d, $dias_semana)], $dias_json);
+                    ?>
                         <div class="card mb-3 card-viaje shadow-sm">
                             <div class="card-body">
                                 <div class="row align-items-center">
                                     <div class="col-md-8">
-                                        <h5 class="card-title mb-1">
+                                        <h5 class="card-title mb-1 text-primary">
                                             <?= htmlspecialchars($v['nombre_viaje']) ?>
                                         </h5>
                                         <p class="text-muted mb-2">
@@ -162,7 +101,7 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
                                             <strong><?= $v['cupos_disponibles'] ?></strong> cupo(s) disponible(s)
                                         </p>
                                         <a href="solicitar_viaje.php?id=<?= $v['id'] ?>" 
-                                           class="btn btn-success btn-sm">
+                                           class="btn btn-success btn-sm px-4">
                                             Solicitar
                                         </a>
                                     </div>
