@@ -42,7 +42,7 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
         .page-title { font-weight: 700; color: #0056b3; }
     </style>
 </head>
-<body >
+<body>
     <?php include 'navbar.php'; ?>
 
     <div class="container mt-5">

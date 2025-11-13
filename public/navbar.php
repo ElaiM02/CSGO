@@ -25,18 +25,20 @@ require_once '../config/functions.php';
                     <li class="nav-item"><a class="nav-link" href="../dashboard.php">Dashboard</a></li>
 
                 <?php if($_SESSION['rol'] == 'pasajero'): ?>
-                     <a class="nav-link btn btn-success text-white px-3" href="registroVehiculos.php">
-                    Convertirme en Chofer
-                    </a>
+                     <a class="nav-link btn btn-success text-white px-3" href="registroVehiculos.php">Convertirme en Chofer</a>
                     <?php endif; ?>
 
                     <?php if ($_SESSION['rol'] === 'pasajero'): ?>
                     <li class="nav-item"><a class="nav-link" href="../buscar_rides.php">Buscar Viajes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="rides_pasajero.php">Mis Viajes</a></li>
+
                     <?php endif; ?>
 
                     <?php if (isChofer()): ?>
                         <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Mis Vehículos</a></li>
                         <li class="nav-item"><a class="nav-link" href="../rides_create.php">Publicar Viaje</a></li>
+                        <li class="nav-item"><a class="nav-link" href="solicitudes_chofer.php">Solicitudes</a></li>
+
                     <?php endif; ?>
 
                     <?php if (isAdmin()): ?>
