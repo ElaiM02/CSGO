@@ -46,17 +46,17 @@ try {
             throw new Exception("No hay cupos disponibles.");
         }
 
-        // Actualizar solicitud
+        // Estado Aceptado
         $stmt = $conn->prepare("UPDATE solicitudes SET estado = 'aceptada' WHERE id = ?");
         $stmt->execute([$solicitud_id]);
 
-        // Reducir cupo
+        // Reduce cupos
         $stmt = $conn->prepare("UPDATE viajes SET cupos_disponibles = cupos_disponibles - 1 WHERE id = ?");
         $stmt->execute([$viaje_id]);
 
         $_SESSION['success'] = "¡Solicitud aceptada! Se redujo un cupo.";
     } else {
-        // Rechazar
+        // Estado Rechazodo
         $stmt = $conn->prepare("UPDATE solicitudes SET estado = 'rechazada' WHERE id = ?");
         $stmt->execute([$solicitud_id]);
 

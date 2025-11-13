@@ -50,40 +50,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php if (isset($error)): ?><div class="alert alert-danger"><?= $error ?></div><?php endif; ?>
         <form method="POST" class="row g-3">
             <div class="col-md-6">
-                <label>Nombre</label>
-                <input type="text" name="nombre" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Apellido</label>
-                <input type="text" name="apellido" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Cédula</label>
-                <input type="text" name="cedula" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Fecha de Nacimiento</label>
-                <input type="date" name="fecha_nacimiento" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Teléfono</label>
-                <input type="text" name="telefono" class="form-control">
-            </div>
-            <div class="col-md-6">
-                <label>Usuario</label>
-                <input type="text" name="usuario" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Contraseña</label>
-                <input type="password" name="password" class="form-control" required>
-            </div>
-            <div class="col-md-6">
-                <label>Rol</label>
-                <select name="rol" class="form-select">
+                <label>Nombre</label><input type="text" name="nombre" class="form-control" required>
+                <label>Apellido</label><input type="text" name="apellido" class="form-control" required>
+                <label>Cédula</label><input type="text" name="cedula" class="form-control" required>
+                <label>Fecha de Nacimiento</label><input type="date" name="fecha_nacimiento" class="form-control" required>
+                <label>Email</label><input type="email" name="email" class="form-control" required>
+                <label>Teléfono</label><input type="text" name="telefono" class="form-control">
+                <label>Usuario</label><input type="text" name="usuario" class="form-control" required>
+                <label>Contraseña</label><input type="password" name="password" class="form-control" required>
+                <label>Rol</label><select name="rol" class="form-select">
                     <option value="pasajero">Pasajero</option>
                     <option value="chofer">Chofer</option>
                     <option value="admin">Administrador</option>

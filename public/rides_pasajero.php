@@ -14,17 +14,10 @@ $pasajero_id = $_SESSION['user_id'];
 
 global $conn;
 
-// Obtener viajes aceptados del pasajero
+// Rides aceptados por el usuario
 $sql = "
-    SELECT s.id AS solicitud_id, s.estado, s.fecha_solicitud,
-           v.id AS viaje_id, v.nombre_viaje, v.origen, v.destino, v.fecha_hora_salida,
-           u.nombre AS chofer_nombre
-    FROM solicitudes s
-    JOIN viajes v ON s.viaje_id = v.id
-    JOIN usuarios u ON v.chofer_id = u.id
-    WHERE s.pasajero_id = ? AND s.estado = 'aceptada'
-    ORDER BY v.fecha_hora_salida ASC
-";
+    SELECT s.id AS solicitud_id, s.estado, s.fecha_solicitud, v.id AS viaje_id, v.nombre_viaje, v.origen, v.destino, v.fecha_hora_salida, u.nombre AS chofer_nombre
+    FROM solicitudes s JOIN viajes v ON s.viaje_id = v.id JOIN usuarios u ON v.chofer_id = u.id WHERE s.pasajero_id = ? AND s.estado = 'aceptada' ORDER BY v.fecha_hora_salida ASC";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $pasajero_id);
@@ -71,15 +64,9 @@ $viajes = $result->fetch_all(MYSQLI_ASSOC);
                                         <h5 class="card-title mb-1 text-primary">
                                             <?= htmlspecialchars($v['nombre_viaje']) ?>
                                         </h5>
-                                        <p class="mb-1">
-                                            <strong>Ruta:</strong> <?= htmlspecialchars($v['origen']) ?> → <?= htmlspecialchars($v['destino']) ?>
-                                        </p>
-                                        <p class="mb-1">
-                                            <strong>Salida:</strong> <?= date('d/m/Y H:i', strtotime($v['fecha_hora_salida'])) ?>
-                                        </p>
-                                        <p class="mb-1">
-                                            <strong>Chofer:</strong> <?= htmlspecialchars($v['chofer_nombre']) ?>
-                                        </p>
+                                        <p class="mb-1"><strong>Ruta:</strong> <?= htmlspecialchars($v['origen']) ?> → <?= htmlspecialchars($v['destino']) ?></p>
+                                        <p class="mb-1"><strong>Salida:</strong> <?= date('d/m/Y H:i', strtotime($v['fecha_hora_salida'])) ?></p>
+                                        <p class="mb-1"><strong>Chofer:</strong> <?= htmlspecialchars($v['chofer_nombre']) ?></p>
                                         <small class="text-success">
                                             Reservado: <?= date('d/m/Y H:i', strtotime($v['fecha_solicitud'])) ?>
                                         </small>

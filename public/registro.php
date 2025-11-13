@@ -14,7 +14,6 @@ redirectByAuth();
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-
     <div class="container">
         <div class="form-box" style="display: block; !important">
             <h2>Registrarse</h2>

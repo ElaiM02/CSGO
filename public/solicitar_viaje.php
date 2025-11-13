@@ -24,7 +24,6 @@ if (!$viaje || $viaje['estado'] !== 'activo' || $viaje['cupos_disponibles'] <= 0
     exit;
 }
 
-// Verificar si ya solicitó
 $pdo = getConnection();
 $stmt = $pdo->prepare("SELECT id FROM solicitudes WHERE viaje_id = ? AND pasajero_id = ?");
 $stmt->execute([$id, $_SESSION['user_id']]);

@@ -26,7 +26,7 @@ try {
     $user = $result->fetch_assoc();
 
     if ($user && (
-        password_verify($contrasena, $user['password']) ||     // ← usuarios del formulario
+        password_verify($contrasena, $user['password']) || 
         $contrasena === $user['password']
         )) {
         $_SESSION["usuario"] = $user['usuario'];

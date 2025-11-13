@@ -1,5 +1,4 @@
 <?php
-// Verifica si el usuario está autenticado
 
 function checkAuth() {
     if (!isset($_SESSION['user_id'])) {
@@ -8,8 +7,6 @@ function checkAuth() {
     }
 }
 
-
-// Muestra mensaje de error si existe
 
 function showError() {
     if (isset($_SESSION['error']) && !empty($_SESSION['error'])) {
@@ -43,8 +40,6 @@ function isAdmin() {return isset($_SESSION['rol']) && $_SESSION['rol'] === 'admi
 function isPasajero() {return isset($_SESSION['rol']) && $_SESSION['rol'] === 'pasajero';}
 
 
-// Redirige según estado de autenticación
-
 function redirectByAuth($loginPage = 'login.php', $homePage = 'index.php') {
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
@@ -55,7 +50,7 @@ function redirectByAuth($loginPage = 'login.php', $homePage = 'index.php') {
     }
 }
 
- // Obtiene el nombre del usuario logueado
+ // Usuario loguado
  
 function getUserName() {
     if (session_status() == PHP_SESSION_NONE) {
@@ -66,7 +61,7 @@ function getUserName() {
 
 
 
-// Aprueba o rechaza un vehículo (solo admin)
+// Solicitudes de vehiculo
 function aprobarRechazarVehiculo(int $vehiculo_id, string $accion, mysqli $conn): bool
 {
     if (!in_array($accion, ['aprobar', 'rechazar'])) {
@@ -77,10 +72,7 @@ function aprobarRechazarVehiculo(int $vehiculo_id, string $accion, mysqli $conn)
     try {
         $conn->begin_transaction();
 
-        // Obtener usuario y rol
-        $sql = "SELECT v.user_id, u.rol FROM vehiculos v 
-                JOIN usuarios u ON v.user_id = u.id 
-                WHERE v.id = ? AND v.estado = 'pendiente' LIMIT 1";
+        $sql = "SELECT v.user_id, u.rol FROM vehiculos v JOIN usuarios u ON v.user_id = u.id WHERE v.id = ? AND v.estado = 'pendiente' LIMIT 1";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("i", $vehiculo_id);
         $stmt->execute();
@@ -101,7 +93,7 @@ function aprobarRechazarVehiculo(int $vehiculo_id, string $accion, mysqli $conn)
         $stmt->bind_param("si", $nuevo_estado, $vehiculo_id);
         $stmt->execute();
 
-        // Si se aprueba y es pasajero → convertir a chofer
+        // Cambio de pasajero a chofer
         if ($accion === 'aprobar' && $vehiculo['rol'] === 'pasajero') {
             $sql = "UPDATE usuarios SET rol = 'chofer' WHERE id = ?";
             $stmt = $conn->prepare($sql);

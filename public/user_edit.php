@@ -59,34 +59,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="col-md-6">
                 <label>Nombre</label>
                 <input type="text" name="nombre" class="form-control" value="<?= htmlspecialchars($usuario['nombre']) ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Apellido</label>
-                <input type="text" name="apellido" class="form-control" value="<?= htmlspecialchars($usuario['apellido']) ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Cédula</label>
-                <input type="text" name="cedula" class="form-control" value="<?= htmlspecialchars($usuario['cedula']) ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Fecha de Nacimiento</label>
-                <input type="date" name="fecha_nacimiento" class="form-control" value="<?= $usuario['fecha_nacimiento'] ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Email</label>
-                <input type="email" name="email" class="form-control" value="<?= htmlspecialchars($usuario['email']) ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Teléfono</label>
-                <input type="text" name="telefono" class="form-control" value="<?= htmlspecialchars($usuario['telefono'] ?? '') ?>">
-            </div>
-            <div class="col-md-6">
-                <label>Usuario</label>
-                <input type="text" name="usuario" class="form-control" value="<?= htmlspecialchars($usuario['usuario']) ?>" required>
-            </div>
-            <div class="col-md-6">
-                <label>Rol</label>
-                <select name="rol" class="form-select">
+                <label>Apellido</label><input type="text" name="apellido" class="form-control" value="<?= htmlspecialchars($usuario['apellido']) ?>" required>
+                <label>Cédula</label><input type="text" name="cedula" class="form-control" value="<?= htmlspecialchars($usuario['cedula']) ?>" required>
+                <label>Fecha de Nacimiento</label><input type="date" name="fecha_nacimiento" class="form-control" value="<?= $usuario['fecha_nacimiento'] ?>" required>
+                <label>Email</label><input type="email" name="email" class="form-control" value="<?= htmlspecialchars($usuario['email']) ?>" required>
+                <label>Teléfono</label><input type="text" name="telefono" class="form-control" value="<?= htmlspecialchars($usuario['telefono'] ?? '') ?>">
+                <label>Usuario</label><input type="text" name="usuario" class="form-control" value="<?= htmlspecialchars($usuario['usuario']) ?>" required>
+                <label>Rol</label><select name="rol" class="form-select">
                     <option value="pasajero" <?= $usuario['rol'] === 'pasajero' ? 'selected' : '' ?>>Pasajero</option>
                     <option value="chofer" <?= $usuario['rol'] === 'chofer' ? 'selected' : '' ?>>Chofer</option>
                     <option value="admin" <?= $usuario['rol'] === 'admin' ? 'selected' : '' ?>>Administrador</option>

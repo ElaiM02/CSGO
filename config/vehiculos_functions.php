@@ -1,9 +1,7 @@
 <?php
 require_once 'database.php';
 
-/**
- * Conexión PDO 
- */
+
 function getConnection() {
     global $host, $db, $user, $password;
     try {
@@ -17,9 +15,7 @@ function getConnection() {
     }
 }
 
-/**
- * Obtener TODOS los vehículos del chofer (pendiente, aprobado, rechazado)
- */
+/* Vehiculos de chofer */
 function getVehiculosByChofer($user_id) {
     $pdo = getConnection();
     $stmt = $pdo->prepare("SELECT * 
@@ -30,9 +26,7 @@ function getVehiculosByChofer($user_id) {
     return $stmt->fetchAll();
 }
 
-/**
- * Obtener solo vehículos APROBADOS 
- */
+/* Vehiculos aprobados*/ 
 function getVehiculosAprobadosByChofer($user_id) {
     $pdo = getConnection();
     $stmt = $pdo->prepare("SELECT * 
@@ -43,9 +37,7 @@ function getVehiculosAprobadosByChofer($user_id) {
     return $stmt->fetchAll();
 }
 
-/**
- * Obtener un vehículo por ID
- */
+/* Vehicuo por ID*/
 function getVehiculoById($id) {
     $pdo = getConnection();
     $stmt = $pdo->prepare("SELECT * FROM vehiculos WHERE id = ?");
@@ -53,9 +45,8 @@ function getVehiculoById($id) {
     return $stmt->fetch();
 }
 
-/**
- * Crear vehículo
- */
+
+ /* Crear vehículo */
 function createVehiculo($data) {
     $pdo = getConnection();
 
@@ -75,9 +66,7 @@ function createVehiculo($data) {
     ]);
 }
 
-/**
- * Actualizar vehículo 
- */
+/* Editar vehiculo */
 function updateVehiculo($id, $data) {
     $pdo = getConnection();
 
@@ -94,9 +83,7 @@ function updateVehiculo($id, $data) {
     ]);
 }
 
-/**
- * Eliminar vehículo (solo si está pendiente)
- */
+/* Eliminar vehiculo */
 function deleteVehiculo($id, $user_id) {
     $pdo = getConnection();
 
@@ -105,9 +92,6 @@ function deleteVehiculo($id, $user_id) {
     return $stmt->execute([$id, $user_id]);
 }
 
-/**
- * Validación del formulario de vehículo
- */
 function validateVehiculo($data) {
     $errors = [];
 

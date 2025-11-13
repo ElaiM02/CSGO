@@ -27,7 +27,6 @@ if (!$vehiculo || $vehiculo['user_id'] != $_SESSION['user_id']) {
     exit();
 }
 
-// Solo eliminar si está pendiente
 if ($vehiculo['estado'] !== 'pendiente') {
     $_SESSION['error'] = 'Solo los vehículos en estado pendiente pueden eliminarse';
     header('Location: vehiculos.php');
@@ -36,7 +35,6 @@ if ($vehiculo['estado'] !== 'pendiente') {
 
 if (deleteVehiculo($id, $_SESSION['user_id'])) {
 
-    // Eliminar foto si existe
     if ($vehiculo['foto'] && file_exists("../uploads/vehiculos/" . $vehiculo['foto'])) {
         unlink("../uploads/vehiculos/" . $vehiculo['foto']);
     }

@@ -2,7 +2,7 @@
 require_once '../config/start_app.php';  
 require_once '../config/functions.php';  
 
-//checkAuth(); // Descomenta cuando lo integres  
+checkAuth();
 if (!isset($_SESSION['user_id'])) {  
     header("Location: login.php");  
     exit;  

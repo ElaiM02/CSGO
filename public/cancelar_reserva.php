@@ -26,7 +26,7 @@ if ($solicitud_id <= 0 || $viaje_id <= 0) {
 
 global $conn;
 
-// Verificar que la solicitud existe y es del pasajero
+// Comprobacion de verificacion 
 $stmt = $conn->prepare("SELECT id FROM solicitudes WHERE id = ? AND pasajero_id = ? AND estado = 'aceptada'");
 $stmt->bind_param("ii", $solicitud_id, $_SESSION['user_id']);
 $stmt->execute();
@@ -41,12 +41,12 @@ if ($result->num_rows === 0) {
 $conn->autocommit(FALSE);
 
 try {
-    // 1. Cambiar estado a 'cancelada'
+    // Estado Cancelada
     $stmt = $conn->prepare("UPDATE solicitudes SET estado = 'cancelada' WHERE id = ?");
     $stmt->bind_param("i", $solicitud_id);
     $stmt->execute();
 
-    // 2. Liberar cupo
+    // Libera Cupos
     $stmt = $conn->prepare("UPDATE viajes SET cupos_disponibles = cupos_disponibles + 1 WHERE id = ?");
     $stmt->bind_param("i", $viaje_id);
     $stmt->execute();

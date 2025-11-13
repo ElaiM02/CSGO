@@ -40,15 +40,11 @@ $isPassenger = isPasajero();
 <body>
 <?php include __DIR__ . '/navbar.php'; ?>
 
-<!-- 🔥 ENVOLTORIO QUE FALTABA (igual al rides_edit.php) -->
 <div class="ride-container">
-
     <div class="container mt-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-
-                <div class="card shadow-lg">
-
+                <div class="card shadow-lg
                     <div class="card-header viaje-header text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">
@@ -58,22 +54,14 @@ $isPassenger = isPasajero();
 
                             <div>
                                 <?php if ($isOwner): ?>
-                                <a href="rides_edit.php?id=<?php echo $viaje['id']; ?>" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Editar
-                                </a>
+                                <a href="rides_edit.php?id=<?php echo $viaje['id']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
                                 <?php endif; ?>
-
-                                <a href="<?php echo $isOwner ? 'rides.php' : '../rides.php'; ?>" 
-                                   class="btn btn-outline-light btn-sm">
-                                    <i class="fas fa-arrow-left"></i> Volver
-                                </a>
+                                <a href="<?php echo $isOwner ? 'rides.php' : '../rides.php'; ?>" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left"></i> Volver</a>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-body">
-
-                        <!-- ORIGEN → DESTINO -->
                         <div class="text-center mb-4 p-4 bg-light rounded">
                             <div class="row align-items-center">
                                 <div class="col">
@@ -82,9 +70,7 @@ $isPassenger = isPasajero();
                                     </h5>
                                 </div>
 
-                                <div class="col-2">
-                                    <i class="fas fa-arrow-right text-primary fa-3x"></i>
-                                </div>
+                                <div class="col-2"><i class="fas fa-arrow-right text-primary fa-3x"></i></div>
 
                                 <div class="col">
                                     <h5><i class="fas fa-map-marker-check text-success fa-2x"></i><br>
@@ -94,7 +80,6 @@ $isPassenger = isPasajero();
                             </div>
                         </div>
 
-                        <!-- INFORMACIÓN DEL CHOFER Y VIAJE -->
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="card bg-light h-100">
@@ -111,9 +96,7 @@ $isPassenger = isPasajero();
                                             <span class="text-secondary">(<?php echo $viaje['color']; ?>)</span>
                                         </p>
 
-                                        <p class="small text-muted">
-                                            <i class="fas fa-id-card"></i> Placa: <?php echo $viaje['placa']; ?>
-                                        </p>
+                                        <p class="small text-muted"><i class="fas fa-id-card"></i> Placa: <?php echo $viaje['placa']; ?></p>
 
                                         <?php if ($isPassenger): ?>
                                         <p><i class="fas fa-phone"></i> <?php echo htmlspecialchars($viaje['chofer_telefono']); ?></p>
@@ -122,7 +105,6 @@ $isPassenger = isPasajero();
                                 </div>
                             </div>
 
-                            <!-- INFORMACIÓN DETALLADA -->
                             <div class="col-md-6">
                                 <h6><i class="fas fa-info-circle text-primary"></i> Información del Viaje</h6>
                                 <table class="table table-sm table-bordered">
@@ -175,7 +157,6 @@ $isPassenger = isPasajero();
                             </div>
                         </div>
 
-                        <!-- NOTAS -->
                         <?php if (!empty($viaje['notas'])): ?>
                         <hr class="my-4">
                         <h6><i class="fas fa-sticky-note text-warning"></i> Notas del Chofer</h6>
@@ -188,7 +169,6 @@ $isPassenger = isPasajero();
 
                         <hr class="my-4">
 
-                        <!-- BOTONES -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
                             <?php if ($isPassenger && $viaje['cupos_disponibles']>0 && strtotime($viaje['fecha_hora_salida'])>time()): ?>
@@ -213,7 +193,7 @@ $isPassenger = isPasajero();
         </div>
     </div>
 
-</div> <!-- FIN DE ride-container -->
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

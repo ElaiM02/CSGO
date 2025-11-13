@@ -35,7 +35,6 @@ $isOwner = $vehiculo['user_id'] == $_SESSION['user_id'];
     <link href="../css/vehiculos.css" rel="stylesheet">
 
     <style>
-        /* Header con degradado */
         .vehiculo-header {
             background: linear-gradient(135deg, #0d6efd, #0a58ca);
         }
@@ -46,16 +45,11 @@ $isOwner = $vehiculo['user_id'] == $_SESSION['user_id'];
 
 <?php include __DIR__ . '/navbar.php'; ?>
 
-<!-- CONTENEDOR PRINCIPAL -->
 <div class="veh-container">
-
     <div class="container mt-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-
                 <div class="card veh-card shadow-lg">
-
-                    <!-- HEADER -->
                     <div class="card-header vehiculo-header text-white">
                         <div class="d-flex justify-content-between align-items-center">
                             <h4 class="mb-0">
@@ -65,28 +59,18 @@ $isOwner = $vehiculo['user_id'] == $_SESSION['user_id'];
 
                             <div>
                                 <?php if ($isOwner): ?>
-                                <a href="vehiculos_edit.php?id=<?= $vehiculo['id']; ?>" class="btn btn-warning btn-sm">
-                                    <i class="fas fa-edit"></i> Editar
-                                </a>
+                                <a href="vehiculos_edit.php?id=<?= $vehiculo['id']; ?>" class="btn btn-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
                                 <?php endif; ?>
-
-                                <a href="vehiculos.php" class="btn btn-outline-light btn-sm">
-                                    <i class="fas fa-arrow-left"></i> Volver
-                                </a>
+                                <a href="vehiculos.php" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left"></i> Volver </a>
                             </div>
                         </div>
                     </div>
 
                     <div class="card-body">
-
-                        <!-- FOTO -->
                         <div class="text-center mb-4">
-                            <img src="<?= $vehiculo['foto'] ? '../uploads/vehiculos/'.$vehiculo['foto'] : '../assets/img/no-image.png' ?>" 
-                                 class="veh-img shadow"
-                                 alt="Foto del vehículo">
+                            <img src="<?= $vehiculo['foto'] ? '../uploads/vehiculos/'.$vehiculo['foto'] : '../assets/img/no-image.png' ?>" class="veh-img shadow"alt="Foto del vehículo">
                         </div>
 
-                        <!-- ESTADO -->
                         <div class="text-center mb-3">
                             <span class="badge px-3 py-2
                                 <?= $vehiculo['estado'] === 'pendiente' 
@@ -100,7 +84,6 @@ $isOwner = $vehiculo['user_id'] == $_SESSION['user_id'];
 
                         <hr>
 
-                        <!-- INFORMACIÓN GENERAL -->
                         <h5><i class="fas fa-info-circle text-primary"></i> Información del Vehículo</h5>
 
                         <table class="table table-bordered table-sm">
@@ -141,36 +124,25 @@ $isOwner = $vehiculo['user_id'] == $_SESSION['user_id'];
                             </tr>
                             <?php endif; ?>
                         </table>
-
                         <hr>
 
-                        <!-- BOTONES -->
                         <div class="d-grid gap-2 d-md-flex justify-content-md-end">
 
                             <?php if ($isOwner): ?>
-                            <button class="btn btn-outline-danger btn-lg"
-                                    onclick="confirmDelete(<?= $vehiculo['id']; ?>)">
-                                <i class="fas fa-trash"></i> Eliminar Vehículo
-                            </button>
+                            <button class="btn btn-outline-danger btn-lg"onclick="confirmDelete(<?= $vehiculo['id']; ?>)"><i class="fas fa-trash"></i> Eliminar Vehículo</button>
                             <?php endif; ?>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 
-<!-- MODAL ELIMINAR -->
+
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
-
             <div class="modal-header bg-danger text-white">
                 <h5 class="modal-title">Eliminar Vehículo</h5>
                 <button class="btn-close btn-close-white" data-bs-dismiss="modal"></button>

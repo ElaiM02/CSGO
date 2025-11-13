@@ -4,14 +4,13 @@ require_once '../config/functions.php';
 
 checkAuth();
 
-// SOLO CHOFERES PUEDEN ACCEDER
 if (!isChofer()) {
     $_SESSION['error'] = "Acceso denegado. Solo choferes pueden gestionar viajes.";
     header("Location: ../dashboard.php");
     exit;
 }
 
-// Obtener viajes del chofer actual
+// Rides del chofer
 $query = "SELECT v.*, veh.marca, veh.modelo, veh.placa 
           FROM viajes v 
           JOIN vehiculos veh ON v.vehiculo_id = veh.id 
@@ -24,7 +23,6 @@ $stmt->execute();
 $result = $stmt->get_result();
 $viajes = $result->fetch_all(MYSQLI_ASSOC);
 
-// Mensajes
 $success = $_SESSION['success'] ?? '';
 $error = $_SESSION['error'] ?? '';
 unset($_SESSION['success'], $_SESSION['error']);
@@ -47,7 +45,6 @@ unset($_SESSION['success'], $_SESSION['error']);
 <body>
 
 <?php include __DIR__ . '/navbar.php'; ?>
-
 
 <div class="ride-container">
     <div class="container mt-4 mb-5">
@@ -101,21 +98,15 @@ unset($_SESSION['success'], $_SESSION['error']);
                                             <small class="text-muted">ID: #<?php echo $v['id']; ?></small>
                                         </div>
 
-                                        <h5 class="card-title">
-                                            <i class="fas fa-map-marker-alt text-danger"></i>
-                                            <?php echo htmlspecialchars($v['origen']); ?>
-                                        </h5>
+                                        <h5 class="card-title"><i class="fas fa-map-marker-alt text-danger"></i><?php echo htmlspecialchars($v['origen']); ?></h5>
 
-                                        <p class="card-text mb-2">
-                                            <i class="fas fa-arrow-down text-muted"></i><br>
-                                            <i class="fas fa-map-marker-check text-success"></i>
-                                            <?php echo htmlspecialchars($v['destino']); ?>
+                                        <p class="card-text mb-2"><i class="fas fa-arrow-down text-muted"></i><br>
+                                            <i class="fas fa-map-marker-check text-success"></i><?php echo htmlspecialchars($v['destino']); ?>
                                         </p>
 
                                         <hr class="my-2">
 
-                                        <div class="small text-muted mb-2">
-                                            <i class="fas fa-calendar"></i>
+                                        <div class="small text-muted mb-2"><i class="fas fa-calendar"></i>
                                             <?php echo date('d/m/Y', strtotime($v['fecha_hora_salida'])); ?><br>
 
                                             <i class="fas fa-clock"></i>
@@ -138,12 +129,8 @@ unset($_SESSION['success'], $_SESSION['error']);
                                             </div>
 
                                             <div class="btn-group w-100" role="group">
-                                                <a href="rides_view.php?id=<?php echo $v['id']; ?>" class="btn btn-outline-info btn-sm">
-                                                    <i class="fas fa-eye"></i> Ver
-                                                </a>
-                                                <a href="rides_edit.php?id=<?php echo $v['id']; ?>" class="btn btn-outline-warning btn-sm">
-                                                    <i class="fas fa-edit"></i> Editar
-                                                </a>
+                                                <a href="rides_view.php?id=<?php echo $v['id']; ?>" class="btn btn-outline-info btn-sm"><i class="fas fa-eye"></i> Ver</a>
+                                                <a href="rides_edit.php?id=<?php echo $v['id']; ?>" class="btn btn-outline-warning btn-sm"><i class="fas fa-edit"></i> Editar</a>
                                                 <button type="button" class="btn btn-outline-danger btn-sm" 
                                                         onclick="confirmDelete(<?php echo $v['id']; ?>, '<?php echo htmlspecialchars($v['origen'] . ' → ' . $v['destino']); ?>')">
                                                     <i class="fas fa-trash"></i> Eliminar
@@ -161,7 +148,6 @@ unset($_SESSION['success'], $_SESSION['error']);
                             </div>
                         <?php endforeach; ?>
                     </div>
-
                 <?php endif; ?>
             </div>
         </div>
@@ -169,7 +155,6 @@ unset($_SESSION['success'], $_SESSION['error']);
     </div>
 </div>
 
-<!-- Modal Eliminar -->
 <div class="modal fade" id="deleteModal" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">

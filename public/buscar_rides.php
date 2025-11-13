@@ -11,19 +11,14 @@ if (!in_array($_SESSION['rol'], ['pasajero', 'chofer'])) {
     exit;
 }
 
-// CONSULTA SIMPLE: TODOS LOS VIAJES ACTIVOS CON CUPOS
-$sql = "SELECT v.*, u.nombre AS chofer_nombre, veh.marca, veh.modelo, veh.placa
-        FROM viajes v
-        JOIN usuarios u ON v.chofer_id = u.id
-        JOIN vehiculos veh ON v.vehiculo_id = veh.id
-        WHERE v.estado = 'activo' AND v.cupos_disponibles > 0
-        ORDER BY v.fecha_hora_salida ASC";
+// Viajes Activos
+$sql = "SELECT v.*, u.nombre AS chofer_nombre, veh.marca, veh.modelo, veh.placa FROM viajes v JOIN usuarios u ON v.chofer_id = u.id
+        JOIN vehiculos veh ON v.vehiculo_id = veh.id WHERE v.estado = 'activo' AND v.cupos_disponibles > 0 ORDER BY v.fecha_hora_salida ASC";
 
 $pdo = getConnection();
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
 $viajes = $stmt->fetchAll();
-
 $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo'];
 ?>
 
@@ -78,8 +73,7 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
                                             <strong>De:</strong> <?= htmlspecialchars($v['origen']) ?> → 
                                             <strong>A:</strong> <?= htmlspecialchars($v['destino']) ?>
                                         </p>
-                                        <p class="mb-2">
-                                            <strong>Salida:</strong> 
+                                        <p class="mb-2"><strong>Salida:</strong> 
                                             <?= date('d/m/Y H:i', strtotime($v['fecha_hora_salida'])) ?>
                                             <?php if ($v['hora_llegada']): ?>
                                                 → <?= date('H:i', strtotime($v['hora_llegada'])) ?>
@@ -87,8 +81,7 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
                                         </p>
                                         <p class="mb-2">
                                             <strong>Chofer:</strong> <?= htmlspecialchars($v['chofer_nombre']) ?><br>
-                                            <strong>Vehículo:</strong> <?= htmlspecialchars($v['marca'] . ' ' . $v['modelo']) ?> - <?= $v['placa'] ?>
-                                        </p>
+                                            <strong>Vehículo:</strong> <?= htmlspecialchars($v['marca'] . ' ' . $v['modelo']) ?> - <?= $v['placa'] ?></p>
                                         <div>
                                             <?php foreach ($dias_nombres as $d): ?>
                                                 <span class="badge bg-success badge-dia me-1"><?= substr($d, 0, 3) ?></span>
@@ -97,13 +90,8 @@ $dias_semana = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado',
                                     </div>
                                     <div class="col-md-4 text-md-end">
                                         <h4 class="text-primary fw-bold">₡<?= number_format($v['precio_por_asiento'], 0) ?></h4>
-                                        <p class="text-success">
-                                            <strong><?= $v['cupos_disponibles'] ?></strong> cupo(s) disponible(s)
-                                        </p>
-                                        <a href="solicitar_viaje.php?id=<?= $v['id'] ?>" 
-                                           class="btn btn-success btn-sm px-4">
-                                            Solicitar
-                                        </a>
+                                        <p class="text-success"><strong><?= $v['cupos_disponibles'] ?></strong> cupo(s) disponible(s)</p>
+                                        <a href="solicitar_viaje.php?id=<?= $v['id'] ?>" class="btn btn-success btn-sm px-4">Solicitar</a>
                                     </div>
                                 </div>
                             </div>

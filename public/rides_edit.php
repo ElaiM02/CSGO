@@ -201,20 +201,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
-                                        <label class="form-label">
-                                            <i class="fas fa-calendar-week form-icon"></i> Días Recurrentes
-                                        </label>
+                                        <label class="form-label"><i class="fas fa-calendar-week form-icon"></i> Días Recurrentes</label>
                                         <div>
                                             <?php $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']; ?>
                                             <?php foreach ($dias as $dia): ?>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" 
-                                                        name="dias_semana[]" value="<?php echo $dia; ?>"
-                                                        id="dia_edit_<?php echo $dia; ?>"
+                                                    <input class="form-check-input" type="checkbox" name="dias_semana[]" value="<?php echo $dia; ?>"id="dia_edit_<?php echo $dia; ?>"
                                                         <?php echo in_array($dia, $dias_semana) ? 'checked' : ''; ?>>
-                                                    <label class="form-check-label" for="dia_edit_<?php echo $dia; ?>">
-                                                        <?php echo substr($dia, 0, 3); ?>
-                                                    </label>
+                                                    <label class="form-check-label" for="dia_edit_<?php echo $dia; ?>"><?php echo substr($dia, 0, 3); ?></label>
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -222,9 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
 
                                 <div class="mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-sticky-note form-icon"></i> Notas Adicionales
-                                    </label>
+                                    <label class="form-label"><i class="fas fa-sticky-note form-icon"></i> Notas Adicionales</label>
                                     <textarea name="notas" class="form-control" rows="3" maxlength="500"><?php echo htmlspecialchars($notas); ?></textarea>
                                 </div>
 
@@ -240,12 +232,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                                 <hr>
                                 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                    <a href="rides.php" class="btn btn-secondary btn-lg">
-                                        <i class="fas fa-times"></i> Cancelar
-                                    </a>
-                                    <button type="submit" class="btn btn-warning btn-lg">
-                                        <i class="fas fa-save"></i> Actualizar Viaje
-                                    </button>
+                                    <a href="rides.php" class="btn btn-secondary btn-lg"><i class="fas fa-times"></i> Cancelar</a>
+                                    <button type="submit" class="btn btn-warning btn-lg"><i class="fas fa-save"></i> Actualizar Viaje</button>
                                 </div>
                             </form>
                         </div>

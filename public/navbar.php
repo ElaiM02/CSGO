@@ -1,8 +1,8 @@
 <?php
-// public/navbar.php
 require_once '../config/start_app.php';
 require_once '../config/functions.php';
 ?>
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow fixed-top">
     <div class="container">
         <a class="navbar-brand d-flex align-items-center" href="../index.php">
@@ -38,7 +38,7 @@ require_once '../config/functions.php';
                         <li class="nav-item"><a class="nav-link" href="../vehiculos.php">Mis Vehículos</a></li>
                         <li class="nav-item"><a class="nav-link" href="../rides_create.php">Publicar Viaje</a></li>
                         <li class="nav-item"><a class="nav-link" href="solicitudes_chofer.php">Solicitudes</a></li>
-                        <li class="nav-item"><a class="nav-link" href="../rides.php">Mis viajes</a></li
+                        <li class="nav-item"><a class="nav-link" href="../rides.php">Mis viajes</a></li>
 
 
                     <?php endif; ?>
@@ -61,7 +61,6 @@ require_once '../config/functions.php';
                             </span>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item" href="../perfil.php">Mi Perfil</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><form action="../logout.php" method="post" class="d-inline">
                                 <button type="submit" class="dropdown-item text-danger">Cerrar sesión</button>

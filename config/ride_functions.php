@@ -1,7 +1,6 @@
 <?php
 require_once 'database.php';
 
-// Función para crear conexión PDO (igual que el profe)
 function getConnection() {
     global $host, $db, $user, $password;
     try {
@@ -16,61 +15,40 @@ function getConnection() {
     }
 }
 
-// ==================== VIAJES ====================
-
-// Obtener todos los viajes disponibles (para pasajeros)
+// Obtener todos los Rides
 function getViajesDisponibles() {
     $pdo = getConnection();
-    $sql = "SELECT v.*, 
-                   u.nombre AS chofer_nombre, u.apellido AS chofer_apellido,
-                   veh.marca, veh.modelo, veh.color, veh.placa
-            FROM viajes v
-            JOIN usuarios u ON v.chofer_id = u.id
-            JOIN vehiculos veh ON v.vehiculo_id = veh.id
-            WHERE v.fecha_hora_salida > NOW()
-              AND v.cupos_disponibles > 0
-              AND v.estado = 'activo'
-            ORDER BY v.fecha_hora_salida ASC";
+    $sql = "SELECT v.*, u.nombre AS chofer_nombre, u.apellido AS chofer_apellido,veh.marca, veh.modelo, veh.color, veh.placa FROM viajes v
+            JOIN usuarios u ON v.chofer_id = u.id JOIN vehiculos veh ON v.vehiculo_id = veh.id WHERE v.fecha_hora_salida > NOW() 
+            AND v.cupos_disponibles > 0 AND v.estado = 'activo' ORDER BY v.fecha_hora_salida ASC";
     $stmt = $pdo->query($sql);
     return $stmt->fetchAll();
 }
 
-// Obtener un viaje por ID (con datos completos)
+// Obtener rides por el ID
 function getViajeById($id) {
     $pdo = getConnection();
-    $sql = "SELECT v.*, 
-                   u.nombre AS chofer_nombre, u.apellido AS chofer_apellido, u.telefono,
-                   veh.marca, veh.modelo, veh.color, veh.placa
-            FROM viajes v
-            JOIN usuarios u ON v.chofer_id = u.id
-            JOIN vehiculos veh ON v.vehiculo_id = veh.id
-            WHERE v.id = ?";
+    $sql = "SELECT v.*, u.nombre AS chofer_nombre, u.apellido AS chofer_apellido, u.telefono, veh.marca, veh.modelo, veh.color, veh.placa FROM viajes v
+            JOIN usuarios u ON v.chofer_id = u.id JOIN vehiculos veh ON v.vehiculo_id = veh.id WHERE v.id = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
     return $stmt->fetch();
 }
 
-// Obtener viajes del chofer (para gestión)
+// Obtener rides del chofer
 function getViajesByChofer($chofer_id) {
     $pdo = getConnection();
-    $sql = "SELECT v.*, veh.marca, veh.modelo, veh.placa 
-            FROM viajes v
-            JOIN vehiculos veh ON v.vehiculo_id = veh.id
-            WHERE v.chofer_id = ?
-            ORDER BY v.fecha_hora_salida DESC";
+    $sql = "SELECT v.*, veh.marca, veh.modelo, veh.placa FROM viajes v JOIN vehiculos veh ON v.vehiculo_id = veh.id WHERE v.chofer_id = ? ORDER BY v.fecha_hora_salida DESC";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$chofer_id]);
     return $stmt->fetchAll();
 }
 
-// Crear nuevo viaje
+// Crear nuevo ride
 function createViaje($data) {
     $pdo = getConnection();
-    $sql = "INSERT INTO viajes 
-            (chofer_id, vehiculo_id, nombre_viaje, origen, destino, 
-             fecha_hora_salida, hora_llegada, precio_por_asiento, 
-             cupos_totales, cupos_disponibles, notas, dias_semana) 
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO viajes (chofer_id, vehiculo_id, nombre_viaje, origen, destino, fecha_hora_salida, hora_llegada, precio_por_asiento, 
+             cupos_totales, cupos_disponibles, notas, dias_semana) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);
     return $stmt->execute([
         $data['chofer_id'],
@@ -82,21 +60,17 @@ function createViaje($data) {
         $data['hora_llegada'] ?? null,
         $data['precio_por_asiento'],
         $data['cupos_totales'],
-        $data['cupos_totales'], // disponibles = totales al crear
+        $data['cupos_totales'],
         $data['notas'] ?? null,
         $data['dias_semana'] ?? null
     ]);
 }
 
-// Actualizar viaje
+// Actualizar rides
 function updateViaje($id, $data) {
     $pdo = getConnection();
-    $sql = "UPDATE viajes SET 
-            nombre_viaje = ?, origen = ?, destino = ?, 
-            fecha_hora_salida = ?, hora_llegada = ?, 
-            precio_por_asiento = ?, cupos_totales = ?, 
-            notas = ?, vehiculo_id = ?, dias_semana = ?
-            WHERE id = ? AND chofer_id = ?";
+    $sql = "UPDATE viajes SET nombre_viaje = ?, origen = ?, destino = ?, fecha_hora_salida = ?, hora_llegada = ?, 
+            precio_por_asiento = ?, cupos_totales = ?, notas = ?, vehiculo_id = ?, dias_semana = ? WHERE id = ? AND chofer_id = ?";
     $stmt = $pdo->prepare($sql);
     $result = $stmt->execute([
         $data['nombre_viaje'],
@@ -121,14 +95,14 @@ function updateViaje($id, $data) {
     return $result;
 }
 
-// Eliminar viaje
+// Eliminar rides
 function deleteViaje($id, $chofer_id) {
     $pdo = getConnection();
     $stmt = $pdo->prepare("DELETE FROM viajes WHERE id = ? AND chofer_id = ?");
     return $stmt->execute([$id, $chofer_id]);
 }
 
-// Validar datos del viaje
+// Validar datos del rides
 function validateViaje($data) {
     $errors = [];
 
@@ -158,8 +132,6 @@ function validateViaje($data) {
 
     return $errors;
 }
-
-// ==================== VEHÍCULOS ====================
 
 // Obtener vehículos del chofer
 function getVehiculosByChofer($chofer_id) {

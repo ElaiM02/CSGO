@@ -82,9 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h4 class="mb-0">
                             <i class="fas fa-plus-circle"></i> Publicar Nuevo Viaje
                         </h4>
-                        <a href="rides.php" class="btn btn-outline-light btn-sm">
-                            <i class="fas fa-arrow-left"></i> Mis Viajes
-                        </a>
+                        <a href="rides.php" class="btn btn-outline-light btn-sm"><i class="fas fa-arrow-left"></i> Mis Viajes</a>
                     </div>
                     <div class="card-body">
                         <?php if (!empty($errors)): ?>
@@ -99,7 +97,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
                         <?php endif; ?>
 
-                        <!-- 🚀 FORMULARIO ESTILIZADO -->
                         <form class="ride-form" method="POST" action="">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
@@ -111,9 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                            maxlength="100" required placeholder="Ej: San José → Liberia">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-car form-icon"></i> Vehículo <span class="text-danger">*</span>
-                                    </label>
+                                    <label class="form-label"><i class="fas fa-car form-icon"></i> Vehículo <span class="text-danger">*</span></label>
                                     <select name="vehiculo_id" class="form-select" required>
                                         <option value="">Selecciona tu vehículo</option>
                                         <?php foreach ($vehiculos as $veh): ?>
@@ -128,37 +123,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-map-marker-alt text-danger form-icon"></i> Lugar de Salida <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" name="origen" class="form-control" 
-                                           value="<?php echo htmlspecialchars($origen); ?>" required
-                                           placeholder="Ej: Parque La Sabana, San José">
+                                    <label class="form-label"><i class="fas fa-map-marker-alt text-danger form-icon"></i> Lugar de Salida <span class="text-danger">*</span></label>
+                                    <input type="text" name="origen" class="form-control" value="<?php echo htmlspecialchars($origen); ?>" required placeholder="Ej: Parque La Sabana, San José">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-map-marker-check text-success form-icon"></i> Lugar de Llegada <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="text" name="destino" class="form-control" 
-                                           value="<?php echo htmlspecialchars($destino); ?>" required
-                                           placeholder="Ej: Terminal de Liberia">
+                                    <label class="form-label"><i class="fas fa-map-marker-check text-success form-icon"></i> Lugar de Llegada <span class="text-danger">*</span></label>
+                                    <input type="text" name="destino" class="form-control" value="<?php echo htmlspecialchars($destino); ?>" required placeholder="Ej: Terminal de Liberia">
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-calendar-alt form-icon"></i> Fecha y Hora de Salida <span class="text-danger">*</span>
-                                    </label>
-                                    <input type="datetime-local" name="fecha_hora_salida" class="form-control" 
-                                           value="<?php echo htmlspecialchars($fecha_hora_salida); ?>" required>
+                                    <label class="form-label"> <i class="fas fa-calendar-alt form-icon"></i> Fecha y Hora de Salida <span class="text-danger">*</span></label>
+                                    <input type="datetime-local" name="fecha_hora_salida" class="form-control" value="<?php echo htmlspecialchars($fecha_hora_salida); ?>" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-clock form-icon"></i> Hora Estimada de Llegada
-                                    </label>
-                                    <input type="time" name="hora_llegada" class="form-control" 
-                                           value="<?php echo htmlspecialchars($hora_llegada); ?>">
+                                    <label class="form-label"><i class="fas fa-clock form-icon"></i> Hora Estimada de Llegada</label>
+                                    <input type="time" name="hora_llegada" class="form-control" value="<?php echo htmlspecialchars($hora_llegada); ?>">
                                 </div>
                             </div>
 
@@ -169,15 +150,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </label>
                                     <div class="input-group">
                                         <span class="input-group-text">₡</span>
-                                        <input type="number" name="precio_por_asiento" class="form-control" 
-                                               value="<?php echo htmlspecialchars($precio_por_asiento); ?>" 
-                                               min="100" step="100" required>
+                                        <input type="number" name="precio_por_asiento" class="form-control" value="<?php echo htmlspecialchars($precio_por_asiento); ?>" min="100" step="100" required>
                                     </div>
                                 </div>
                                 <div class="col-md-4 mb-3">
                                     <label class="form-label">
-                                        <i class="fas fa-users form-icon"></i> Cupos Totales <span class="text-danger">*</span>
-                                    </label>
+                                        <i class="fas fa-users form-icon"></i> Cupos Totales <span class="text-danger">*</span></label>
                                     <select name="cupos_totales" class="form-select">
                                         <?php for ($i = 1; $i <= 8; $i++): ?>
                                             <option value="<?php echo $i; ?>" <?php echo $cupos_totales == $i ? 'selected' : ''; ?>>
@@ -187,20 +165,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     </select>
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-calendar-week form-icon"></i> Días Recurrentes
-                                    </label>
+                                    <label class="form-label"><i class="fas fa-calendar-week form-icon"></i> Días Recurrentes</label>
                                     <div>
                                         <?php $dias = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado', 'Domingo']; ?>
                                         <?php foreach ($dias as $dia): ?>
                                             <div class="form-check form-check-inline">
-                                                <input class="form-check-input" type="checkbox" 
-                                                       name="dias_semana[]" value="<?php echo $dia; ?>"
-                                                       id="dia_<?php echo $dia; ?>"
+                                                <input class="form-check-input" type="checkbox" name="dias_semana[]" value="<?php echo $dia; ?>" id="dia_<?php echo $dia; ?>"
                                                        <?php echo in_array($dia, $dias_semana) ? 'checked' : ''; ?>>
-                                                <label class="form-check-label" for="dia_<?php echo $dia; ?>">
-                                                    <?php echo substr($dia, 0, 3); ?>
-                                                </label>
+                                                <label class="form-check-label" for="dia_<?php echo $dia; ?>"><?php echo substr($dia, 0, 3); ?></label>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
@@ -208,9 +180,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label">
-                                    <i class="fas fa-sticky-note form-icon"></i> Notas Adicionales
-                                </label>
+                                <label class="form-label"><i class="fas fa-sticky-note form-icon"></i> Notas Adicionales</label>
                                 <textarea name="notas" class="form-control" rows="3" maxlength="500"
                                           placeholder="Ej: Salida puntual, llevar cédula, no se permite comida fuerte..."><?php echo htmlspecialchars($notas); ?></textarea>
                                 <div class="form-text">Máximo 500 caracteres</div>
@@ -218,15 +188,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <hr>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="rides.php" class="btn btn-secondary btn-lg">
-                                    <i class="fas fa-times"></i> Cancelar
-                                </a>
-                                <button type="submit" class="btn btn-success btn-lg">
-                                    <i class="fas fa-paper-plane"></i> Publicar Viaje
-                                </button>
+                                <a href="rides.php" class="btn btn-secondary btn-lg"><i class="fas fa-times"></i> Cancelar</a>
+                                <button type="submit" class="btn btn-success btn-lg"><i class="fas fa-paper-plane"></i> Publicar Viaje</button>
                             </div>
                         </form>
-                        <!-- 🚀 FIN FORMULARIO -->
                     </div>
                 </div>
             </div>

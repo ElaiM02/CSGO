@@ -48,36 +48,6 @@ if (!filter_var($correo, FILTER_VALIDATE_EMAIL)) {
     exit;
 }
 
-// Subida de foto (opcional)
-$foto = null;
-if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-    $allowed = ['jpg', 'jpeg', 'png', 'gif'];
-    $filename = $_FILES['foto']['name'];
-    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-    
-    if (!in_array($ext, $allowed)) {
-        $_SESSION['error'] = "Formato de imagen no permitido. Usa JPG, PNG o GIF.";
-        header("Location: registro.php");
-        exit;
-    }
-    
-    if ($_FILES['foto']['size'] > 2 * 1024 * 1024) {
-        $_SESSION['error'] = "La imagen no debe exceder 2MB.";
-        header("Location: registro.php");
-        exit;
-    }
-    
-    $upload_dir = '../uploads/usuarios/';
-    if (!is_dir($upload_dir)) mkdir($upload_dir, 0755, true);
-    
-    $foto = 'usuarios/' . uniqid() . '.' . $ext;
-    if (!move_uploaded_file($_FILES['foto']['tmp_name'], $upload_dir . basename($foto))) {
-        $_SESSION['error'] = "Error al subir la imagen.";
-        header("Location: registro.php");
-        exit;
-    }
-}
-
 try {
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 

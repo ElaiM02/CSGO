@@ -26,7 +26,7 @@ if (!$vehiculo || $vehiculo['user_id'] != $_SESSION['user_id']) {
     exit;
 }
 
-// Solo editar si el vehículo está pendiente
+// Solo se edita el vehiculo si esta pendiente
 if ($vehiculo['estado'] !== 'pendiente') {
     $_SESSION['error'] = "Solo los vehículos en estado pendiente pueden editarse.";
     header("Location: vehiculos.php");
@@ -49,7 +49,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $color = trim($_POST['color']);
     $placa = trim($_POST['placa']);
 
-    // FOTO
     $foto = $vehiculo['foto'];
     if (!empty($_FILES['foto']['name'])) {
 
@@ -64,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if (move_uploaded_file($_FILES['foto']['tmp_name'], $uploadPath)) {
 
-                // borrar foto anterior si existía
                 if ($vehiculo['foto'] && file_exists("../uploads/vehiculos/" . $vehiculo['foto'])) {
                     unlink("../uploads/vehiculos/" . $vehiculo['foto']);
                 }
@@ -77,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Validar campos
     if (empty($marca)) $errors[] = "La marca es obligatoria.";
     if (empty($modelo)) $errors[] = "El modelo es obligatorio.";
     if ($ano < 1990 || $ano > intval(date("Y")) + 1) $errors[] = "Año no válido.";
@@ -136,28 +133,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <?php include __DIR__ . '/navbar.php'; ?>
 
-<!-- CONTENEDOR PRINCIPAL -->
 <div class="veh-container">
-
     <div class="container mt-4 mb-5">
-
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
-
                 <div class="card shadow-lg">
-
                     <div class="card-header d-flex justify-content-between align-items-center">
                         <h4 class="mb-0">
                             <i class="fas fa-edit"></i> Editar Vehículo
                         </h4>
 
                         <div>
-                            <a href="vehiculos_view.php?id=<?= $id; ?>" class="btn btn-outline-info btn-sm">
-                                <i class="fas fa-eye"></i> Ver Detalle
-                            </a>
-                            <a href="vehiculos.php" class="btn btn-outline-secondary btn-sm">
-                                <i class="fas fa-arrow-left"></i> Mis Vehículos
-                            </a>
+                            <a href="vehiculos_view.php?id=<?= $id; ?>" class="btn btn-outline-info btn-sm"><i class="fas fa-eye"></i> Ver Detalle</a>
+                            <a href="vehiculos.php" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left"></i> Mis Vehículos</a>
                         </div>
                     </div>
 
@@ -179,50 +167,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-car veh-ico"></i> Marca *
-                                    </label>
-                                    <input type="text" name="marca" class="form-control"
-                                           value="<?= htmlspecialchars($marca); ?>" required>
+                                    <label class="form-label"><i class="fas fa-car veh-ico"></i> Marca *</label>
+                                    <input type="text" name="marca" class="form-control"value="<?= htmlspecialchars($marca); ?>" required>
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-car-side veh-ico"></i> Modelo *
-                                    </label>
-                                    <input type="text" name="modelo" class="form-control"
-                                           value="<?= htmlspecialchars($modelo); ?>" required>
+                                    <label class="form-label"><i class="fas fa-car-side veh-ico"></i> Modelo *</label>
+                                    <input type="text" name="modelo" class="form-control"value="<?= htmlspecialchars($modelo); ?>" required>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-calendar veh-ico"></i> Año *
-                                    </label>
-                                    <input type="number" name="ano" class="form-control"
-                                           value="<?= htmlspecialchars($ano); ?>"
-                                           min="1990" max="<?= date("Y")+1 ?>" required>
+                                    <label class="form-label"><i class="fas fa-calendar veh-ico"></i> Año *</label>
+                                    <input type="number" name="ano" class="form-control"value="<?= htmlspecialchars($ano); ?>"min="1990" max="<?= date("Y")+1 ?>" required>
                                 </div>
 
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-palette veh-ico"></i> Color *
-                                    </label>
-                                    <input type="text" name="color" class="form-control"
-                                           value="<?= htmlspecialchars($color); ?>" required>
+                                    <label class="form-label"><i class="fas fa-palette veh-ico"></i> Color *</label>
+                                    <input type="text" name="color" class="form-control"value="<?= htmlspecialchars($color); ?>" required>
                                 </div>
 
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">
-                                        <i class="fas fa-id-card veh-ico"></i> Placa *
-                                    </label>
-                                    <input type="text" name="placa" class="form-control"
-                                           value="<?= htmlspecialchars($placa); ?>" required>
+                                    <label class="form-label"><i class="fas fa-id-card veh-ico"></i> Placa *</label>
+                                    <input type="text" name="placa" class="form-control"value="<?= htmlspecialchars($placa); ?>" required>
                                 </div>
                             </div>
 
-                            <!-- FOTO -->
                             <div class="mb-3">
                                 <label class="form-label"><i class="fas fa-image veh-ico"></i> Foto</label>
                                 <input type="file" name="foto" class="form-control">
@@ -239,26 +210,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <hr>
 
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="vehiculos.php" class="btn btn-secondary btn-lg">
-                                    <i class="fas fa-times"></i> Cancelar
-                                </a>
-
-                                <button type="submit" class="btn btn-warning btn-lg">
-                                    <i class="fas fa-save"></i> Guardar Cambios
+                                <a href="vehiculos.php" class="btn btn-secondary btn-lg"><i class="fas fa-times"></i> Cancelar</a>
+                                <button type="submit" class="btn btn-warning btn-lg"><i class="fas fa-save"></i> Guardar Cambios
                                 </button>
                             </div>
-
                         </form>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-
     </div>
-
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

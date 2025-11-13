@@ -12,7 +12,7 @@ if ($_SESSION['rol'] !== 'admin') {
 
 global $conn;
 
-// === ELIMINAR USUARIO ===
+// Eliminar
 if (isset($_GET['delete'])) {
     $id = intval($_GET['delete']);
     $stmt = $conn->prepare("DELETE FROM usuarios WHERE id = ? AND rol != 'admin'");
@@ -23,7 +23,7 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-// === LISTAR USUARIOS ===
+// Usuarios
 $stmt = $conn->prepare("
     SELECT id, nombre, apellido, cedula, fecha_nacimiento, email, telefono, 
            usuario, foto, rol, activo 
@@ -54,9 +54,7 @@ $usuarios = $result->fetch_all(MYSQLI_ASSOC);
     <div class="container mt-5">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2 class="text-primary fw-bold">Gestión de Usuarios</h2>
-            <a href="user_create.php" class="btn btn-success">
-                + Crear Usuario
-            </a>
+            <a href="user_create.php" class="btn btn-success">+ Crear Usuario</a>
         </div>
 
         <?php if (isset($_SESSION['success'])): ?>
@@ -119,16 +117,9 @@ $usuarios = $result->fetch_all(MYSQLI_ASSOC);
                                 </span>
                             </td>
                             <td class="text-center">
-                                <a href="user_edit.php?id=<?= $u['id'] ?>" 
-                                   class="btn btn-primary btn-sm" title="Editar">
-                                    Editar
-                                </a>
+                                <a href="user_edit.php?id=<?= $u['id'] ?>" class="btn btn-primary btn-sm" title="Editar">Editar</a>
                                 <?php if ($u['rol'] !== 'admin'): ?>
-                                    <a href="?delete=<?= $u['id'] ?>" 
-                                       class="btn btn-danger btn-sm" 
-                                       onclick="return confirm('¿Eliminar este usuario?')">
-                                        Eliminar
-                                    </a>
+                                    <a href="?delete=<?= $u['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar este usuario?')">Eliminar</a>
                                 <?php endif; ?>
                             </td>
                         </tr>

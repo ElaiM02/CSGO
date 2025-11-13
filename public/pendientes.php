@@ -2,7 +2,6 @@
 require_once '../config/start_app.php';
 require_once '../config/functions.php';
 
-// --- SEGURIDAD ---
 checkAuth();
 if (!isAdmin()) {
     $_SESSION['error'] = "Acceso denegado. Solo administradores.";
@@ -10,7 +9,7 @@ if (!isAdmin()) {
     exit;
 }
 
-// --- PROCESAR APROBACIÓN/RECHAZO ---
+// Aprobar o Rechazo de solicitudes
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST['accion'])) {
     $vehiculo_id = (int)$_POST['vehiculo_id'];
     $accion = $_POST['accion']; // 'aprobar' o 'rechazar'
@@ -60,8 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
 
                         <?php if ($count == 0): ?>
                             <div class="alert alert-info text-center">
-                                <i class="fas fa-check-circle"></i>
-                                No hay vehículos pendientes de aprobación.
+                                <i class="fas fa-check-circle"></i>No hay vehículos pendientes de aprobación.
                             </div>
                         <?php else: ?>
                             <div class="table-responsive">
@@ -78,11 +76,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
                                     </thead>
                                     <tbody>
                                         <?php
-                                       $sql = "SELECT v.*, u.usuario, u.email, u.rol, u.id AS usuario_id
-                                        FROM vehiculos v 
-                                        JOIN usuarios u ON v.user_id = u.id 
-                                        WHERE v.estado = 'pendiente' 
-                                        ORDER BY v.fecha_registro DESC";
+                                       $sql = "SELECT v.*, u.usuario, u.email, u.rol, u.id AS usuario_idFROM vehiculos v JOIN usuarios u ON v.user_id = u.id 
+                                        WHERE v.estado = 'pendiente' ORDER BY v.fecha_registro DESC";
                                         $result = $conn->query($sql);
                                         while ($v = $result->fetch_assoc()):
                                         ?>
@@ -110,7 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
                                                 <?php echo date('d/m/Y H:i', strtotime($v['fecha_registro'] ?? 'now')); ?>
                                             </td>
                                             <td>
-                                                <!-- APROBAR -->
+                                                <!-- Aprovar Cofer -->
                                                 <form method="POST" class="d-inline">
                                                     <input type="hidden" name="vehiculo_id" value="<?php echo $v['id']; ?>">
                                                     <button type="submit" name="accion" value="aprobar"
@@ -120,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['vehiculo_id'], $_POST
                                                     </button>
                                                 </form>
 
-                                                <!-- RECHAZAR -->
+                                                <!-- Rechazar Chofer -->
                                                 <form method="POST" class="d-inline">
                                                     <input type="hidden" name="vehiculo_id" value="<?php echo $v['id']; ?>">
                                                     <button type="submit" name="accion" value="rechazar"

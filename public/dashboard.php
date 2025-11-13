@@ -24,9 +24,7 @@ checkAuth();
                 <div class="card shadow">
                     <div class="card-body text-center p-5">
                         <h3>¡Bienvenido, <strong><?php echo htmlspecialchars(getUserName()); ?></strong>!</h3>
-                        <p class="lead">
-                            <span class="badge bg-primary fs-5">Rol: <?php echo getRol(); ?></span>
-                        </p>
+                        <p class="lead"><span class="badge bg-primary fs-5">Rol: <?php echo getRol(); ?></span></p>
                         <hr>
                         <?php if (isPasajero()): ?>
                             <a href="buscar_rides.php" class="btn btn-primary btn-lg">Buscar Viajes</a>
@@ -42,7 +40,6 @@ checkAuth();
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="bg-primary text-white text-center py-3 mt-auto">
         <p class="mb-0">Aventones | UTN - ISW-811 | <?php echo date('Y-m-d H:i'); ?></p>
     </footer>
