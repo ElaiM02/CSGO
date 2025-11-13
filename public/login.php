@@ -19,7 +19,7 @@ redirectByAuth();
             <h2>Login</h2>
 
             <?php if (isset($_SESSION['error'])): ?>
-                <div style="background:#f8d7da; color:#721c24; padding:12px; border-radius:6px; margin-bottom:20px; text-align:center;">
+                <div class="alert-error>
                     <?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
                 </div>
             <?php endif; ?>

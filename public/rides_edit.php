@@ -1,18 +1,18 @@
 <?php
 require_once '../config/start_app.php';
 require_once '../config/functions.php';
-require_once '../config/rides_functions.php';
+require_once '../config/ride_functions.php';
 
 checkAuth();
 if (!isChofer()) { $_SESSION['error'] = "Acceso denegado."; header("Location: ../dashboard.php"); exit; }
 
 $id = intval($_GET['id'] ?? 0);
-if ($id <= 0) { $_SESSION['error'] = 'Viaje no válido'; header('Location: gestion.php'); exit; }
+if ($id <= 0) { $_SESSION['error'] = 'Viaje no válido'; header('Location: ../dashboard.php'); exit; }
 
 $viaje = getViajeById($id);
 if (!$viaje || $viaje['chofer_id'] != $_SESSION['user_id']) {
     $_SESSION['error'] = 'No tienes permiso';
-    header('Location: gestion.php');
+    header('Location: ../dashboard.php');
     exit;
 }
 
@@ -31,6 +31,18 @@ $vehiculo_id = $viaje['vehiculo_id'];
 $dias_semana = $viaje['dias_semana'] ? json_decode($viaje['dias_semana'], true) : [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+$nombre_viaje = trim($_POST['nombre_viaje'] ?? '');
+$origen = trim($_POST['origen'] ?? '');
+$destino = trim($_POST['destino'] ?? '');
+$fecha_hora_salida = $_POST['fecha_hora_salida'] ?? '';
+$hora_llegada = !empty($_POST['hora_llegada']) ? $_POST['hora_llegada'] . ':00' : null;
+$precio_por_asiento = (float)($_POST['precio_por_asiento'] ?? 0);
+$cupos_totales = (int)($_POST['cupos_totales'] ?? 0);
+$notas = trim($_POST['notas'] ?? '');
+$vehiculo_id = (int)($_POST['vehiculo_id'] ?? 0);
+$dias_semana = $_POST['dias_semana'] ?? [];
+
+
     $data = [
         'nombre_viaje' => $nombre_viaje,
         'origen' => $origen,
@@ -51,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         if (updateViaje($id, $data)) {
             $_SESSION['success'] = "¡Viaje actualizado!";
-            header("Location: gestion.php");
+            header("Location: rides.php");
             exit;
         } else {
             $errors[] = "Error al actualizar";
@@ -85,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <i class="fas fa-edit"></i> Editar Viaje
                         </h4>
                         <div>
-                            <a href="view.php?id=<?php echo $id; ?>" class="btn btn-outline-info btn-sm">
+                            <a href="rides_view.php?id=<?php echo $id; ?>" class="btn btn-outline-info btn-sm">
                                 <i class="fas fa-eye"></i> Ver Detalle
                             </a>
                             <a href="rides.php" class="btn btn-outline-secondary btn-sm">
@@ -232,7 +244,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <hr>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="gestion.php" class="btn btn-secondary btn-lg">
+                                <a href="rides.php" class="btn btn-secondary btn-lg">
                                     <i class="fas fa-times"></i> Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-warning btn-lg">

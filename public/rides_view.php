@@ -1,7 +1,7 @@
 <?php
 require_once '../config/start_app.php';
 require_once '../config/functions.php';
-require_once '../config/rides_functions.php';
+require_once '../config/ride_functions.php';
 
 checkAuth();
 

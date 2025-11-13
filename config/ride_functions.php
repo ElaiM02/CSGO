@@ -164,7 +164,7 @@ function validateViaje($data) {
 // Obtener vehículos del chofer
 function getVehiculosByChofer($chofer_id) {
     $pdo = getConnection();
-    $stmt = $pdo->prepare("SELECT * FROM vehiculos WHERE chofer_id = ? ORDER BY marca, modelo");
+    $stmt = $pdo->prepare("SELECT * FROM vehiculos WHERE user_id = ? AND estado = 'aprobado' ORDER BY marca, modelo");
     $stmt->execute([$chofer_id]);
     return $stmt->fetchAll();
 }

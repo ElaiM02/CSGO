@@ -30,6 +30,10 @@ require_once '../config/functions.php';
                     </a>
                     <?php endif; ?>
 
+                    <?php if ($_SESSION['rol'] === 'pasajero'): ?>
+                    <li class="nav-item"><a class="nav-link" href="../buscar_rides.php">Buscar Viajes</a></li>
+                    <?php endif; ?>
+
                     <?php if (isChofer()): ?>
                         <li class="nav-item"><a class="nav-link" href="../registroVehiculos.php">Mis Vehículos</a></li>
                         <li class="nav-item"><a class="nav-link" href="../rides_create.php">Publicar Viaje</a></li>

@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($errors)) {
         if (createViaje($data)) {
             $_SESSION['success'] = "¡Viaje publicado exitosamente!";
-            header("Location: gestion.php");
+            header("Location: rides.php");
             exit;
         } else {
             $errors[] = "Error al publicar el viaje.";
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                             <hr>
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                <a href="gestion.php" class="btn btn-secondary btn-lg">
+                                <a href="rides.php" class="btn btn-secondary btn-lg">
                                     <i class="fas fa-times"></i> Cancelar
                                 </a>
                                 <button type="submit" class="btn btn-success btn-lg">

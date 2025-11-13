@@ -5,11 +5,11 @@ require_once '../config/functions.php';
 checkAuth();
 
 // SOLO CHOFERES PUEDEN ACCEDER
-/*if (!isChofer()) {
+if (!isChofer()) {
     $_SESSION['error'] = "Acceso denegado. Solo choferes pueden gestionar viajes.";
     header("Location: ../dashboard.php");
     exit;
-}*/
+}
 
 // Obtener viajes del chofer actual
 $query = "SELECT v.*, veh.marca, veh.modelo, veh.placa 
@@ -133,11 +133,11 @@ unset($_SESSION['success'], $_SESSION['error']);
                                             </div>
 
                                             <div class="btn-group w-100" role="group">
-                                                <a href="detalle.php?id=<?php echo $v['id']; ?>" 
+                                                <a href="rides_view.php?id=<?php echo $v['id']; ?>" 
                                                    class="btn btn-outline-info btn-sm">
                                                     <i class="fas fa-eye"></i> Ver
                                                 </a>
-                                                <a href="editar.php?id=<?php echo $v['id']; ?>" 
+                                                <a href="rides_edit.php?id=<?php echo $v['id']; ?>" 
                                                    class="btn btn-outline-warning btn-sm">
                                                     <i class="fas fa-edit"></i> Editar
                                                 </a>
@@ -177,7 +177,7 @@ unset($_SESSION['success'], $_SESSION['error']);
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                    <form id="deleteForm" method="POST" action="eliminar.php" style="display:inline;">
+                    <form id="deleteForm" method="POST" action="rides_delete.php" style="display:inline;">
                         <input type="hidden" name="id" id="deleteId">
                         <button type="submit" class="btn btn-danger">Sí, eliminar</button>
                     </form>
